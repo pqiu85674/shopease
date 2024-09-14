@@ -26,22 +26,10 @@ function Header() {
           </Link>
         </div>
         <div className="flex items-center justify-center">
-          <input className="w-96 h-8 rounded-l-3xl p-4 border-none outline-none" />
+          <input className="w-60 h-8 md:w-96 rounded-l-3xl p-4 border-none outline-none" />
           <div className="w-16 h-8 bg-neutral-400 rounded-r-3xl flex items-center cursor-pointer ">
             <IoSearch className=" w-6 h-6 ml-4" />
           </div>
-          {/* <Input.Search
-            placeholder="input search text"
-            allowClear
-            enterButton
-            onSearch={(e) => {
-              console.log(e);
-            }}
-            onChange={(e) => {
-              console.log(e.target.value);
-            }}
-            className="hidden md:w-96 md:block "
-          /> */}
         </div>
         <div>
           <Link to="/" className="m-4 hidden sm:inline-block">
