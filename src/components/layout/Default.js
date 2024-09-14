@@ -9,7 +9,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme, Card } from "antd";
+import { Layout, Menu, theme } from "antd";
 import Header from "./Header";
 import CollapsedContext from "../Contexts/CollapsedContext";
 
@@ -54,7 +54,7 @@ const items = [
   icon: React.createElement(icon),
   label: `nav ${index + 1}`,
 }));
-const App = () => {
+const Default = ({ children }) => {
   // const [collapsed, setCollapsed] = React.useState(false);
   const { collapsed } = React.useContext(CollapsedContext);
 
@@ -87,7 +87,7 @@ const App = () => {
             className="bg-neutral-600 "
           />
         </Sider>
-        <Layout style={{...layoutStyle , transition:"all 0.2s"}}>
+        <Layout style={{ ...layoutStyle, transition: "all 0.2s" }}>
           <Content
             style={{
               margin: "24px 16px 0",
@@ -102,20 +102,7 @@ const App = () => {
                 borderRadius: borderRadiusLG,
               }}
             >
-              <p>long content</p>
-              {
-                Array.from(
-                  {
-                    length: 100,
-                  },
-                  (_, index) => (
-                    <React.Fragment key={index}>
-                      {index % 20 === 0 && index ? "more" : "..."}
-                      <br />
-                    </React.Fragment>
-                  )
-                )
-              }
+              {children}
             </div>
           </Content>
           <Footer
@@ -130,4 +117,4 @@ const App = () => {
     </div>
   );
 };
-export default App;
+export default Default;
