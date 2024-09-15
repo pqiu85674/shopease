@@ -71,7 +71,6 @@ const Default = ({ children }) => {
   return (
     <div>
       <Header />
-      <div className="w-full h-16"></div>
       <Layout hasSider>
         <Sider
           style={siderStyle}
