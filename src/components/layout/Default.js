@@ -33,22 +33,6 @@ const items = [
   AppstoreOutlined,
   TeamOutlined,
   ShopOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  AppstoreOutlined,
-  TeamOutlined,
-  ShopOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  AppstoreOutlined,
-  TeamOutlined,
-  ShopOutlined,
 ].map((icon, index) => ({
   key: String(index + 1),
   icon: React.createElement(icon),
@@ -71,10 +55,10 @@ const Default = ({ children }) => {
   return (
     <div>
       <Header />
-      <Layout hasSider>
+      <Layout>
         <Sider
           style={siderStyle}
-          className="bg-neutral-300"
+          className="bg-neutral-600"
           collapsed={collapsed}
         >
           <div className="demo-logo-vertical" />
@@ -83,10 +67,14 @@ const Default = ({ children }) => {
             mode="inline"
             defaultSelectedKeys={["4"]}
             items={items}
-            className="bg-neutral-600 "
+            className="bg-neutral-600"
           />
         </Sider>
-        <Layout style={{ ...layoutStyle, transition: "all 0.2s" }}>
+        <Layout
+          className={` transition-all duration-200 ${
+            collapsed ? "ml-20" : "ml-52"
+          }`}
+        >
           <Content
             style={{
               margin: "24px 16px 0",

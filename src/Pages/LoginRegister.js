@@ -1,6 +1,10 @@
 import React from "react";
-import Header from "../components/layout/Header";
-import { AtomLogin, AtomRegister, AtomIsMember } from "../Recoil/Atom";
+import {
+  AtomLogin,
+  AtomRegister,
+  AtomUseName,
+  AtomIsMember,
+} from "../Recoil/Atom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import Logo from "../images/logo.svg";
 import { Input, Space, Button, Divider } from "antd";
@@ -10,6 +14,7 @@ function LoginRegister() {
   const login = useRecoilValue(AtomLogin);
   const register = useRecoilValue(AtomRegister);
   const [isMember, setIsMember] = useRecoilState(AtomIsMember);
+  const [useName, setUseName] = useRecoilState(AtomUseName);
   const [account, setAccount] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -31,6 +36,13 @@ function LoginRegister() {
           </lable>
 
           <Space direction="vertical" size="large" className="w-full">
+            <Input
+              placeholder="useName"
+              onChange={(e) => {
+                setUseName(e.target.value);
+              }}
+              value={useName}
+            />
             <Input
               placeholder="account"
               onChange={(e) => {
@@ -65,6 +77,7 @@ function LoginRegister() {
                   setIsMember(true);
                   navigate("/");
                 } else {
+                  setUseName("");
                   setAccount("");
                   setPassword("");
                   setConfirmPassword("");

@@ -1,11 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Dropdown } from "antd";
 import Logo from "../../images/logo.svg";
 import { FaBars } from "react-icons/fa6";
 import CollapsedContext from "../Contexts/CollapsedContext";
-import { IoSearch } from "react-icons/io5";
-import { AtomLogin, AtomRegister, AtomIsMember } from "../../Recoil/Atom";
+import { IoSearch, IoClose } from "react-icons/io5";
+import {
+  AtomLogin,
+  AtomRegister,
+  AtomUseName,
+  AtomIsMember,
+} from "../../Recoil/Atom";
 import { useRecoilState } from "recoil";
 import { useLocation } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
@@ -14,32 +18,10 @@ function Header() {
   const { collapsed, setCollapsed } = React.useContext(CollapsedContext);
   const [login, setLogin] = useRecoilState(AtomLogin);
   const [register, setRegister] = useRecoilState(AtomRegister);
+  const [useName, setUseName] = useRecoilState(AtomUseName);
   const [isMember, setIsMember] = useRecoilState(AtomIsMember);
   const location = useLocation();
-
-  const items = [
-    {
-      key: "1",
-      label: (
-        <Link
-          to="/"
-          onClick={() => {
-            setIsMember(false);
-          }}
-        >
-          登出
-        </Link>
-      ),
-    },
-    {
-      key: "2",
-      label: <Link to="/">item2</Link>,
-    },
-    {
-      key: "3",
-      label: <Link to="/">item3</Link>,
-    },
-  ];
+  const [useIcon, setUseIcon] = React.useState(false);
 
   React.useEffect(() => {
     if (location.pathname === "/") {
@@ -52,12 +34,12 @@ function Header() {
       setLogin(false);
       setRegister(true);
     }
-  }, [location]);
+  }, [location, setLogin, setRegister]);
 
   return (
     <div>
       <div
-        className={`fixed w-full bg-neutral-300 z-10 ${
+        className={`fixed w-full bg-neutral-600 z-10 ${
           login || register ? "hidden" : "block"
         }`}
       >
@@ -68,7 +50,7 @@ function Header() {
                 setCollapsed(!collapsed);
               }}
             >
-              <FaBars size={30} className="cursor-pointer" />
+              <FaBars size={36} className="cursor-pointer" />
             </div>
             <Link to="/" className=" inline-block">
               <img src={Logo} alt="Logo" className="block w-16 h-16 " />
@@ -88,18 +70,52 @@ function Header() {
               登入
             </Link>
           </div>
-          <div className={`${isMember ? "block" : "hidden"} flex items-center`}>
-            {/* <div className="p-4 hidden sm:inline-block cursor-pointer"> */}
-              <Dropdown
-                menu={{
-                  items,
+          <div
+            className={`${
+              isMember ? "block" : "hidden"
+            } flex items-center gap-4`}
+          >
+            <MdAccountCircle
+              size={40}
+              className="mr-6 cursor-pointer"
+              onClick={() => {
+                setUseIcon(!useIcon);
+              }}
+            />
+            <div
+              className={`transition-all absolute top-20 right-4 bg-neutral-600 w-48 h-96 rounded-lg py-6 text-xl ${
+                useIcon ? "block" : "hidden"
+              }`}
+            >
+              <IoClose
+                size={40}
+                className="absolute top-2 right-2 cursor-pointer"
+                onClick={() => {
+                  setUseIcon(!useIcon);
                 }}
-                placement="bottomRight"
-                arrow
+              />
+              <div className="flex items-center mb-2 gap-2">
+                <MdAccountCircle size={46} className="ml-4 inline-block" />
+                <div className="inline-block">{`${useName}`}</div>
+              </div>
+              <Link
+                to="/"
+                className="py-1 px-6 hover:bg-neutral-500 text-neutral-300 cursor-pointer block"
               >
-                <MdAccountCircle size={40} className="mr-6"/>
-              </Dropdown>
-            {/* </div> */}
+                我的檔案
+              </Link>
+              {/* <div className="w-full h-0.5 bg-neutral-300"></div> */}
+              <Link
+                to="/"
+                className="py-1 px-6 hover:bg-neutral-500 text-neutral-300 cursor-pointer block"
+                onClick={() => {
+                  setIsMember(false);
+                  setUseName("");
+                }}
+              >
+                登出
+              </Link>
+            </div>
           </div>
         </div>
       </div>

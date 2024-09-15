@@ -10,7 +10,7 @@ function ProductCard({ src, alt, title, description }) {
   return (
     <Card
       hoverable
-      className="w-full p-2 border-0 md:w-1/3 lg:w-1/5"
+      className="w-full p-2 border-0 md:w-1/3 lg:w-1/5 mb-4"
       cover={<StyledCard src={src} alt={alt} />}
     >
       {console.log(src)}
