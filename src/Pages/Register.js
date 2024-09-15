@@ -1,10 +1,11 @@
 import Header from "../components/layout/Header";
+import LoginRegister from "./LoginRegister";
 
 function Register() {
   return (
     <div>
       <Header></Header>
-      <div>This is register</div>
+      <LoginRegister></LoginRegister>
     </div>
   );
 }

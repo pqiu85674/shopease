@@ -10,4 +10,9 @@ const AtomRegister = atom({
   default: false,
 });
 
-export { AtomLogin, AtomRegister };
+const AtomIsMember = atom({
+  key: "isMember",
+  default: false,
+});
+
+export { AtomLogin, AtomRegister, AtomIsMember };
