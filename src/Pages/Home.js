@@ -10,61 +10,17 @@ function Home() {
             alt="example"
             src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
             title="title"
-            description="description"
+            description={{price:"200"}}
+            path="p001"
+            info="這是產品資訊，這是產品資訊，這是產品資訊，這是產品資訊，這是產品資訊，這是產品資訊"
           ></ProductCard>
           <ProductCard
             alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+            src="https://mall.ronever.com.tw/upload/product_list_pic_s/twL_product_21I08_Dwd8zjBUAn.jpg"
             title="title"
-            description="description"
-          ></ProductCard>
-          <ProductCard
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            title="title"
-            description="description"
-          ></ProductCard>
-          <ProductCard
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            title="title"
-            description="description"
-          ></ProductCard>
-          <ProductCard
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            title="title"
-            description="description"
-          ></ProductCard>
-          <ProductCard
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            title="title"
-            description="description"
-          ></ProductCard>
-          <ProductCard
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            title="title"
-            description="description"
-          ></ProductCard>
-          <ProductCard
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            title="title"
-            description="description"
-          ></ProductCard>
-          <ProductCard
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            title="title"
-            description="description"
-          ></ProductCard>
-          <ProductCard
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-            title="title"
-            description="description"
+            description={{price:"300"}}
+            path="p002"
+            info="這是產品資訊，這是產品資訊，這是產品資訊，這是產品資訊，這是產品資訊，這是產品資訊"
           ></ProductCard>
         </div>
       </Default>

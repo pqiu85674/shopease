@@ -55,31 +55,25 @@ const Default = ({ children }) => {
   return (
     <div>
       <Header />
-      <Layout>
+      <Layout className="bg-neutral-600">
         <Sider
           style={siderStyle}
-          className="bg-neutral-600"
           collapsed={collapsed}
         >
           <div className="demo-logo-vertical" />
           <Menu
             theme="dark"
             mode="inline"
-            defaultSelectedKeys={["4"]}
             items={items}
             className="bg-neutral-600"
           />
         </Sider>
         <Layout
-          className={` transition-all duration-200 ${
-            collapsed ? "ml-20" : "ml-52"
-          }`}
+          style={layoutStyle}
+          className={`bg-neutral-500 transition-all duration-200 `}
         >
           <Content
-            style={{
-              margin: "24px 16px 0",
-              overflow: "initial",
-            }}
+            className="m-4 "
           >
             <div
               style={{

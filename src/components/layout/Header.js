@@ -50,7 +50,12 @@ function Header() {
                 setCollapsed(!collapsed);
               }}
             >
-              <FaBars size={36} className="cursor-pointer" />
+              <FaBars
+                size={36}
+                className={`cursor-pointer ${
+                  location.pathname === "/" ? "inline-block" : "hidden"
+                }`}
+              />
             </div>
             <Link to="/" className=" inline-block">
               <img src={Logo} alt="Logo" className="block w-16 h-16 " />
@@ -83,7 +88,7 @@ function Header() {
               }}
             />
             <div
-              className={`transition-all absolute top-20 right-4 bg-neutral-600 w-48 h-96 rounded-lg py-6 text-xl ${
+              className={`transition-all absolute top-20 right-4 bg-neutral-700 w-48 h-96 rounded-lg py-6 text-xl ${
                 useIcon ? "block" : "hidden"
               }`}
             >

@@ -5,6 +5,7 @@ import { ConfigProvider } from "antd";
 import { CollapsedProvider } from "./components/Contexts/CollapsedContext";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import Product from "./Pages/Product";
 
 function App() {
   return (
@@ -23,9 +24,10 @@ function App() {
       <BrowserRouter>
         <CollapsedProvider>
           <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/product/:path" element={<Product />}></Route>
           </Routes>
         </CollapsedProvider>
       </BrowserRouter>

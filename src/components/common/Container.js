@@ -1,14 +1,5 @@
-import styled from "styled-components";
-
-const Container = styled.div`
-  /* margin: auto;
-  width: 100%; */
-  /* @media (min-width: 769px) {
-    width: 80%;
-  }
-  @media (min-width: 1025px) {
-    width: 70%;
-  } */
-`;
+function Container({ children ,className}) {
+  return <div className={`w-fall p-20 md:px-20 lg:px-40 m-auto ${className}`}>{children}</div>;
+}
 
 export default Container;
