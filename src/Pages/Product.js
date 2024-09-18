@@ -4,10 +4,16 @@ import Container from "../components/common/Container";
 import { InputNumber, Button } from "antd";
 import { HiCurrencyDollar } from "react-icons/hi2";
 import { FaShoppingCart } from "react-icons/fa";
+import styled from "styled-components";
+
+const StyledCard = styled.div`
+  padding-top: 100%;
+  background: url(${(props) => props.src}) scroll no-repeat center / cover;
+`;
 
 function Product({ children }) {
   const location = useLocation();
-  const { src, alt, title, description, info } = location.state || {};
+  const { src, title, description, info } = location.state || {};
 
   return (
     <div>
@@ -16,21 +22,21 @@ function Product({ children }) {
         <div className="bg-neutral-100 rounded-lg p-8">
           <div className="flex">
             <div className="flex-[2]">
-              <img src={src} alt={alt} />
+              <StyledCard src={src} />
             </div>
-            <div className="flex-[3] p-4">
+            <div className="flex-[3] p-8">
               <div className="text-4xl">{title}</div>
               <div className="my-2">{info}</div>
               <div className="text-red-500 m-4 p-2 bg-neutral-200">
                 ${description.price}
               </div>
-              <lable>數量：</lable>
+              <div>數量：</div>
               <InputNumber
                 defaultValue={1}
                 onChange={() => {}}
                 changeOnWheel
                 className="w-16"
-              />{" "}
+              />
               <div className="pt-8 flex gap-4 justify-center">
                 <Button className="text-xl" type="primary">
                   <FaShoppingCart />

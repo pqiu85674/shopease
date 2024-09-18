@@ -1,14 +1,14 @@
 // import { Header } from "antd/es/layout/layout";
 import Header from "../components/layout/Header";
-import LoginRegister from "./LoginRegister";
+import SignInSignUp from "./SignInSignUp";
 
-function Login() {
+function SignIn() {
   return (
     <div>
       <Header></Header>
-      <LoginRegister></LoginRegister>
+      <SignInSignUp></SignInSignUp>
     </div>
   );
 }
 
-export default Login;
+export default SignIn;

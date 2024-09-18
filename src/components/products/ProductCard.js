@@ -17,11 +17,13 @@ function ProductCard({ src, alt, title, description, path, info }) {
       <Card
         hoverable
         className="w-full h-full border-0"
-        cover={<StyledCard src={src} alt={alt} />}
+        cover={<StyledCard src={src} />}
       >
         <Card.Meta
           title={title}
-          description={<span className="text-red-500">{description.price}</span>}
+          description={
+            <span className="text-red-500">{description.price}</span>
+          }
           className="text-start"
         />
       </Card>

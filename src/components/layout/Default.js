@@ -12,8 +12,11 @@ import {
 import { Layout, Menu, theme } from "antd";
 import Header from "./Header";
 import CollapsedContext from "../Contexts/CollapsedContext";
+import { AtomUseIcon } from "../../Recoil/Atom";
+import { useRecoilState } from "recoil";
+import Footer from "./Footer";
 
-const { Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 const siderStyle = {
   overflow: "auto",
   height: "calc(100vh - 64px)",
@@ -38,9 +41,11 @@ const items = [
   icon: React.createElement(icon),
   label: `nav ${index + 1}`,
 }));
+
 const Default = ({ children }) => {
   // const [collapsed, setCollapsed] = React.useState(false);
   const { collapsed } = React.useContext(CollapsedContext);
+  const [useIcon, setUseIcon] = useRecoilState(AtomUseIcon);
 
   const layoutStyle = React.useMemo(
     () => ({
@@ -55,11 +60,13 @@ const Default = ({ children }) => {
   return (
     <div>
       <Header />
-      <Layout className="bg-neutral-600">
-        <Sider
-          style={siderStyle}
-          collapsed={collapsed}
-        >
+      <Layout
+        className="bg-neutral-600"
+        onClick={() => {
+          setUseIcon(false);
+        }}
+      >
+        <Sider style={siderStyle} collapsed={collapsed}>
           <div className="demo-logo-vertical" />
           <Menu
             theme="dark"
@@ -72,9 +79,7 @@ const Default = ({ children }) => {
           style={layoutStyle}
           className={`bg-neutral-500 transition-all duration-200 `}
         >
-          <Content
-            className="m-4 "
-          >
+          <Content className="m-4 ">
             <div
               style={{
                 padding: 24,
@@ -86,13 +91,7 @@ const Default = ({ children }) => {
               {children}
             </div>
           </Content>
-          <Footer
-            style={{
-              textAlign: "center",
-            }}
-          >
-            Ant Design ©{new Date().getFullYear()} Created by Ant UED
-          </Footer>
+          <Footer/>
         </Layout>
       </Layout>
     </div>

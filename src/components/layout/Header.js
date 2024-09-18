@@ -5,10 +5,11 @@ import { FaBars } from "react-icons/fa6";
 import CollapsedContext from "../Contexts/CollapsedContext";
 import { IoSearch, IoClose } from "react-icons/io5";
 import {
-  AtomLogin,
-  AtomRegister,
-  AtomUseName,
+  AtomIsSignIn,
+  AtomIsSignUp,
+  AtomUserName,
   AtomIsMember,
+  AtomUseIcon,
 } from "../../Recoil/Atom";
 import { useRecoilState } from "recoil";
 import { useLocation } from "react-router-dom";
@@ -16,32 +17,35 @@ import { MdAccountCircle } from "react-icons/md";
 
 function Header() {
   const { collapsed, setCollapsed } = React.useContext(CollapsedContext);
-  const [login, setLogin] = useRecoilState(AtomLogin);
-  const [register, setRegister] = useRecoilState(AtomRegister);
-  const [useName, setUseName] = useRecoilState(AtomUseName);
+  const [isSignIn, setIsSignIn] = useRecoilState(AtomIsSignIn);
+  const [isSignUp, setIsSignUp] = useRecoilState(AtomIsSignUp);
+  const [userName, setUserName] = useRecoilState(AtomUserName);
   const [isMember, setIsMember] = useRecoilState(AtomIsMember);
   const location = useLocation();
-  const [useIcon, setUseIcon] = React.useState(false);
+  const [useIcon, setUseIcon] = useRecoilState(AtomUseIcon);
 
   React.useEffect(() => {
     if (location.pathname === "/") {
-      setLogin(false);
-      setRegister(false);
-    } else if (location.pathname === "/login") {
-      setLogin(true);
-      setRegister(false);
-    } else if (location.pathname === "/register") {
-      setLogin(false);
-      setRegister(true);
+      setIsSignIn(false);
+      setIsSignUp(false);
+    } else if (location.pathname === "/signIn") {
+      setIsSignIn(true);
+      setIsSignUp(false);
+    } else if (location.pathname === "/signUp") {
+      setIsSignIn(false);
+      setIsSignUp(true);
     }
-  }, [location, setLogin, setRegister]);
+  }, [location, setIsSignIn, setIsSignUp]);
 
   return (
     <div>
       <div
         className={`fixed w-full bg-neutral-600 z-10 ${
-          login || register ? "hidden" : "block"
+          isSignIn || isSignUp ? "hidden" : "block"
         }`}
+        onClick={() => {
+          setUseIcon(false);
+        }}
       >
         <div className="flex justify-between items-center">
           <div className="flex justify-between items-center ml-8 gap-2">
@@ -68,10 +72,10 @@ function Header() {
             </div>
           </div>
           <div className={`${isMember ? "hidden" : "block"}`}>
-            <Link to="/register" className="p-4 hidden sm:inline-block">
+            <Link to="/signUp" className="p-4 hidden sm:inline-block">
               註冊
             </Link>
-            <Link to="/login" className="p-4 hidden sm:inline-block">
+            <Link to="/signIn" className="p-4 hidden sm:inline-block">
               登入
             </Link>
           </div>
@@ -83,8 +87,9 @@ function Header() {
             <MdAccountCircle
               size={40}
               className="mr-6 cursor-pointer"
-              onClick={() => {
+              onClick={(e) => {
                 setUseIcon(!useIcon);
+                e.stopPropagation();
               }}
             />
             <div
@@ -96,12 +101,12 @@ function Header() {
                 size={40}
                 className="absolute top-2 right-2 cursor-pointer"
                 onClick={() => {
-                  setUseIcon(!useIcon);
+                  setUseIcon(false);
                 }}
               />
               <div className="flex items-center mb-2 gap-2">
                 <MdAccountCircle size={46} className="ml-4 inline-block" />
-                <div className="inline-block">{`${useName}`}</div>
+                <div className="inline-block">{`${userName}`}</div>
               </div>
               <Link
                 to="/"
@@ -115,7 +120,7 @@ function Header() {
                 className="py-1 px-6 hover:bg-neutral-500 text-neutral-300 cursor-pointer block"
                 onClick={() => {
                   setIsMember(false);
-                  setUseName("");
+                  setUserName("");
                 }}
               >
                 登出
@@ -125,19 +130,19 @@ function Header() {
         </div>
       </div>
       <div
-        className={`w-full h-16 ${login || register ? "hidden" : "block"}`}
+        className={`w-full h-16 ${isSignIn || isSignUp ? "hidden" : "block"}`}
       ></div>
       <div
         className={`flex items-center w-full h-32 bg-neutral-600 ${
-          login || register ? "block" : "hidden"
+          isSignIn || isSignUp ? "block" : "hidden"
         }`}
       >
         <Link to="/" className=" inline-block">
           <img src={Logo} alt="Logo" className="block w-32 h-32 ml-20 mr-8" />
         </Link>
         <div className="text-6xl text-neutral-300 font-black">
-          {login && "登入"}
-          {register && "註冊"}
+          {isSignIn && "登入"}
+          {isSignUp && "註冊"}
         </div>
       </div>
     </div>

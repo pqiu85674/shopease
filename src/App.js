@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import { ConfigProvider } from "antd";
 import { CollapsedProvider } from "./components/Contexts/CollapsedContext";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
+import SignIn from "./Pages/SignIn";
+import SignUp from "./Pages/SignUp";
 import Product from "./Pages/Product";
 
 function App() {
@@ -25,8 +25,8 @@ function App() {
         <CollapsedProvider>
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/register" element={<Register />}></Route>
+            <Route path="/signIn" element={<SignIn />}></Route>
+            <Route path="/signUp" element={<SignUp />}></Route>
             <Route path="/product/:path" element={<Product />}></Route>
           </Routes>
         </CollapsedProvider>

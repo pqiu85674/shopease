@@ -1,20 +1,20 @@
 import { atom } from "recoil";
 import { localStorageEffect } from "./recoilEffects";
 
-const AtomLogin = atom({
-  key: "login",
+const AtomIsSignIn = atom({
+  key: "IsSignIn",
   default: false,
 });
 
-const AtomRegister = atom({
-  key: "register",
+const AtomIsSignUp = atom({
+  key: "IsSignUp",
   default: false,
 });
 
-const AtomUseName = atom({
-  key: "useName",
+const AtomUserName = atom({
+  key: "userName",
   default: "",
-  effects: [localStorageEffect("useName")],
+  effects: [localStorageEffect("userName")],
 });
 
 const AtomIsMember = atom({
@@ -23,4 +23,9 @@ const AtomIsMember = atom({
   effects: [localStorageEffect("isMember")],
 });
 
-export { AtomLogin, AtomRegister, AtomUseName, AtomIsMember };
+const AtomUseIcon = atom({
+  key: "useIcon",
+  default: false,
+});
+
+export { AtomIsSignIn, AtomIsSignUp, AtomUserName, AtomIsMember, AtomUseIcon };

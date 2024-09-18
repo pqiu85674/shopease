@@ -1,4 +1,4 @@
 function Footer() {
-  return <div>This is footer</div>;
+  return <div className="text-center p-8">This is footer</div>;
 }
 export default Footer;
