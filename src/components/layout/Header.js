@@ -96,6 +96,9 @@ function Header() {
               className={`transition-all absolute top-20 right-4 bg-neutral-700 w-48 h-96 rounded-lg py-6 text-xl ${
                 useIcon ? "block" : "hidden"
               }`}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
             >
               <IoClose
                 size={40}
