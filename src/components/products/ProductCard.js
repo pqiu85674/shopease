@@ -7,23 +7,21 @@ const StyledCard = styled.div`
   background: url(${(props) => props.src}) scroll no-repeat center / cover;
 `;
 
-function ProductCard({ src, alt, title, description, path, info }) {
+function ProductCard({ productId, src, title, price, pictureName, size }) {
   return (
     <Link
-      to={`/product/:${path}`}
-      state={{ src, alt, title, description, path, info }}
+      to={`/product/:${productId}`}
+      state={{ productId, src, title, price, pictureName, size }}
       className="block w-full p-2 border-0 md:w-1/3 lg:w-1/5 mb-4"
     >
       <Card
         hoverable
-        className="w-full h-full border-0"
+        className="w-full h-full border-0 p-0.5"
         cover={<StyledCard src={src} />}
       >
         <Card.Meta
           title={title}
-          description={
-            <span className="text-red-500">{description.price}</span>
-          }
+          description={<span className="text-red-500">{price}</span>}
           className="text-start"
         />
       </Card>

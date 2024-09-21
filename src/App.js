@@ -6,8 +6,25 @@ import { CollapsedProvider } from "./components/Contexts/CollapsedContext";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import Product from "./Pages/Product";
+import React from "react";
+import getProducts from "./axios/getProducts";
+import { AtomProducts } from "./Recoil/Atom";
+import { useSetRecoilState } from "recoil";
 
 function App() {
+  const setProducts = useSetRecoilState(AtomProducts);
+  React.useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const result = await getProducts();
+        setProducts(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchProducts();
+  }, []);
+
   return (
     <ConfigProvider
       theme={{

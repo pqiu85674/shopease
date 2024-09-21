@@ -10,10 +10,15 @@ import {
   AtomUserName,
   AtomIsMember,
   AtomUseIcon,
+  AtomShopCar,
 } from "../../Recoil/Atom";
 import { useRecoilState } from "recoil";
 import { useLocation } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
+import { FaShoppingCart } from "react-icons/fa";
+import { BiSolidMessageRoundedError } from "react-icons/bi";
+import getProducts from "../../axios/getProducts";
+import axios from "axios";
 
 function Header() {
   const { collapsed, setCollapsed } = React.useContext(CollapsedContext);
@@ -21,6 +26,7 @@ function Header() {
   const [isSignUp, setIsSignUp] = useRecoilState(AtomIsSignUp);
   const [userName, setUserName] = useRecoilState(AtomUserName);
   const [isMember, setIsMember] = useRecoilState(AtomIsMember);
+  const [shopCar, setShopCar] = useRecoilState(AtomShopCar);
   const location = useLocation();
   const [useIcon, setUseIcon] = useRecoilState(AtomUseIcon);
 
@@ -64,6 +70,20 @@ function Header() {
             <Link to="/" className=" inline-block">
               <img src={Logo} alt="Logo" className="block w-16 h-16 " />
             </Link>
+            <button
+              onClick={() => {
+                setShopCar(0);
+                getProducts();
+                axios
+                  .get("http://localhost:3000/addProducts")
+                  .then((response) => {
+                    console.log(response);
+                  })
+                  .catch((err) => console.log(err));
+              }}
+            >
+              test
+            </button>
           </div>
           <div className="flex items-center justify-center">
             <input className="w-40 h-8 md:w-60 lg:w-96 rounded-l-3xl p-4 border-none outline-none" />
@@ -84,6 +104,14 @@ function Header() {
               isMember ? "block" : "hidden"
             } flex items-center gap-4`}
           >
+            <div className="relative">
+              <BiSolidMessageRoundedError
+                className={`text-rose-500 absolute top-2 right-1 ${
+                  shopCar === 0 ? "hidden" : "block"
+                }`}
+              />
+              <FaShoppingCart size={30} className="cursor-pointer m-3" />
+            </div>
             <MdAccountCircle
               size={40}
               className="mr-6 cursor-pointer"

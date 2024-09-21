@@ -13,7 +13,7 @@ import { Layout, Menu, theme } from "antd";
 import Header from "./Header";
 import CollapsedContext from "../Contexts/CollapsedContext";
 import { AtomUseIcon } from "../../Recoil/Atom";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import Footer from "./Footer";
 
 const { Content, Sider } = Layout;
@@ -45,7 +45,7 @@ const items = [
 const Default = ({ children }) => {
   // const [collapsed, setCollapsed] = React.useState(false);
   const { collapsed } = React.useContext(CollapsedContext);
-  const [useIcon, setUseIcon] = useRecoilState(AtomUseIcon);
+  const setUseIcon = useSetRecoilState(AtomUseIcon);
 
   const layoutStyle = React.useMemo(
     () => ({
@@ -55,7 +55,7 @@ const Default = ({ children }) => {
   );
 
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { borderRadiusLG },
   } = theme.useToken();
   return (
     <div>
@@ -84,14 +84,15 @@ const Default = ({ children }) => {
               style={{
                 padding: 24,
                 textAlign: "center",
-                background: colorBgContainer,
+                // background: colorBgContainer,
                 borderRadius: borderRadiusLG,
               }}
+              className="bg-neutral-300"
             >
               {children}
             </div>
           </Content>
-          <Footer/>
+          <Footer />
         </Layout>
       </Layout>
     </div>

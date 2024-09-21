@@ -5,7 +5,7 @@ import {
   AtomUserName,
   AtomIsMember,
 } from "../Recoil/Atom";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import Logo from "../images/logo.svg";
 import { Input, Space, Button, Divider } from "antd";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ import signIn from "../axios/signIn";
 function SignInSignUp() {
   const isSignIn = useRecoilValue(AtomIsSignIn);
   const isSignUp = useRecoilValue(AtomIsSignUp);
-  const [isMember, setIsMember] = useRecoilState(AtomIsMember);
+  const setIsMember = useSetRecoilState(AtomIsMember);
   const [userName, setUserName] = useRecoilState(AtomUserName);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -77,6 +77,7 @@ function SignInSignUp() {
             setEmail("");
             setPassword("");
             setConfirmPassword("");
+            navigate("/signIn");
           } else if (response.data.message === "無效的電子郵件格式") {
             alert(response.data.message);
             setEmail("");
@@ -176,10 +177,18 @@ function SignInSignUp() {
             <Divider className="my-1" />
             <div className="text-center mr-4">
               {isSignIn && "新朋友？"}
-              {isSignIn && <Link to="/signUp">註冊</Link>}
+              {isSignIn && (
+                <Link to="/signUp" className="text-neutral-400">
+                  註冊
+                </Link>
+              )}
 
               {isSignUp && "已經有帳號了嗎？"}
-              {isSignUp && <Link to="/signIn">登入</Link>}
+              {isSignUp && (
+                <Link to="/signIn" className="text-neutral-400">
+                  登入
+                </Link>
+              )}
             </div>
             {/* <ToastContainer /> */}
           </Space>

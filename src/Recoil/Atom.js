@@ -28,4 +28,23 @@ const AtomUseIcon = atom({
   default: false,
 });
 
-export { AtomIsSignIn, AtomIsSignUp, AtomUserName, AtomIsMember, AtomUseIcon };
+const AtomShopCar = atom({
+  key: "shopCar",
+  default: 0,
+  effects: [localStorageEffect("shopCar")],
+});
+
+const AtomProducts = atom({
+  key: "products",
+  default: [],
+});
+
+export {
+  AtomIsSignIn,
+  AtomIsSignUp,
+  AtomUserName,
+  AtomIsMember,
+  AtomUseIcon,
+  AtomShopCar,
+  AtomProducts,
+};
