@@ -5,9 +5,10 @@ import { InputNumber, Button, Carousel, Radio } from "antd";
 import { HiCurrencyDollar } from "react-icons/hi2";
 import { FaShoppingCart } from "react-icons/fa";
 import styled from "styled-components";
-import { AtomIsMember, AtomShopCar } from "../Recoil/Atom";
+import { AtomIsMember, AtomUserName } from "../Recoil/Atom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import React from "react";
+import addShopCar from "../axios/addShopCar";
 
 const StyledCard = styled.div`
   padding-top: 100%;
@@ -15,14 +16,17 @@ const StyledCard = styled.div`
 `;
 
 function Product() {
+  const userName = useRecoilValue(AtomUserName);
   const isMember = useRecoilValue(AtomIsMember);
-  const [shopCar, setShopCar] = useRecoilState(AtomShopCar);
+  // const [shopCar, setShopCar] = useRecoilState(AtomShopCar);
   const navigate = useNavigate();
   const location = useLocation();
-  const { productId, src, title, price, alt, size } = location.state || {};
-  const [customerSize, setCustomerSize] = React.useState();
-
-  const selectPicture = React.useRef();
+  const { productId, src, title, price, alt, size, kind } =
+    location.state || {};
+  const [selectSize, setSelectSize] = React.useState();
+  const [selectKind, setSelectKind] = React.useState();
+  const [count, setCount] = React.useState(1);
+  const refKind = React.useRef();
 
   function handleSrc() {
     return src.map((item, index) => {
@@ -33,7 +37,7 @@ function Product() {
   return (
     <div>
       <Header></Header>
-      <Container className="bg-neutral-300">
+      <Container>
         <div className="bg-neutral-100 rounded-lg p-8">
           <div className="flex">
             <div className="flex-[2] flex justify-center items-center">
@@ -42,7 +46,8 @@ function Product() {
                 arrows
                 className="h-full w-64"
                 ref={(ref) => {
-                  selectPicture.current = ref;
+                  // console.log(ref);
+                  refKind.current = ref;
                 }}
               >
                 {handleSrc()}
@@ -53,28 +58,31 @@ function Product() {
               <div className="text-red-500 m-4 p-2 bg-neutral-200">
                 ${price}
               </div>
-              {alt.length > 1 && (
+              {kind.length > 1 && (
                 <div className="flex gap-2 my-4">
                   <div>種類：</div>
                   <Radio.Group
                     onChange={(e) => {
-                      selectPicture.current.goTo(e.target.value);
+                      refKind.current.goTo(e.target.value);
+                      setSelectKind(e.target.value);
+                      console.log(e.target.value);
                     }}
                   >
-                    {alt.map((item, index) => (
-                      <Radio key={index} value={item}>
+                    {kind.map((item, index) => (
+                      <Radio key={index} value={index}>
                         {item}
                       </Radio>
                     ))}
                   </Radio.Group>
                 </div>
               )}
-              {size && (
+              {size.length > 1 && (
                 <div className="flex gap-4 my-4">
                   <div>size：</div>
                   <Radio.Group
                     onChange={(e) => {
-                      setCustomerSize(e.target.value);
+                      // console.log(e.target.value);
+                      setSelectSize(e.target.value);
                     }}
                   >
                     {size.map((item, index) => (
@@ -90,7 +98,9 @@ function Product() {
                 <InputNumber
                   defaultValue={1}
                   min={1}
-                  onChange={() => {}}
+                  onChange={(e) => {
+                    setCount(e);
+                  }}
                   changeOnWheel
                   className="w-16"
                 />
@@ -101,7 +111,13 @@ function Product() {
                   type="primary"
                   onClick={() => {
                     !isMember && navigate("/signIn");
-                    setShopCar(shopCar + 1);
+                    addShopCar(
+                      userName,
+                      productId,
+                      count,
+                      selectSize,
+                      alt[selectKind]
+                    );
                   }}
                 >
                   <FaShoppingCart />
@@ -111,8 +127,15 @@ function Product() {
                   className="text-xl"
                   type="primary"
                   onClick={() => {
-                    !isMember && navigate("/signIn");
-                    setShopCar(0);
+                    if (kind.length > 0 && selectKind === undefined) {
+                      alert("請選擇種類");
+                    } else if (size.length > 0 && selectSize === undefined) {
+                      alert("請選擇size");
+                    } else if (!isMember) {
+                      navigate("/signIn");
+                    } else {
+                      navigate("/shopCar");
+                    }
                   }}
                 >
                   <HiCurrencyDollar />

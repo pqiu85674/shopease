@@ -6,6 +6,7 @@ import { CollapsedProvider } from "./components/Contexts/CollapsedContext";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import Product from "./Pages/Product";
+import ShopCar from "./Pages/ShopCar";
 import React from "react";
 import getProducts from "./axios/getProducts";
 import { AtomProducts } from "./Recoil/Atom";
@@ -45,6 +46,7 @@ function App() {
             <Route path="/signIn" element={<SignIn />}></Route>
             <Route path="/signUp" element={<SignUp />}></Route>
             <Route path="/product/:path" element={<Product />}></Route>
+            <Route path="/shopCar" element={<ShopCar />}></Route>
           </Routes>
         </CollapsedProvider>
       </BrowserRouter>

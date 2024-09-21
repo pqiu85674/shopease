@@ -10,7 +10,6 @@ import {
   AtomUserName,
   AtomIsMember,
   AtomUseIcon,
-  AtomShopCar,
 } from "../../Recoil/Atom";
 import { useRecoilState } from "recoil";
 import { useLocation } from "react-router-dom";
@@ -26,7 +25,6 @@ function Header() {
   const [isSignUp, setIsSignUp] = useRecoilState(AtomIsSignUp);
   const [userName, setUserName] = useRecoilState(AtomUserName);
   const [isMember, setIsMember] = useRecoilState(AtomIsMember);
-  const [shopCar, setShopCar] = useRecoilState(AtomShopCar);
   const location = useLocation();
   const [useIcon, setUseIcon] = useRecoilState(AtomUseIcon);
 
@@ -72,7 +70,6 @@ function Header() {
             </Link>
             <button
               onClick={() => {
-                setShopCar(0);
                 getProducts();
                 axios
                   .get("http://localhost:3000/addProducts")
@@ -107,10 +104,12 @@ function Header() {
             <div className="relative">
               <BiSolidMessageRoundedError
                 className={`text-rose-500 absolute top-2 right-1 ${
-                  shopCar === 0 ? "hidden" : "block"
+                  0 === 0 ? "hidden" : "block"
                 }`}
               />
-              <FaShoppingCart size={30} className="cursor-pointer m-3" />
+              <Link to="/shopCar">
+                <FaShoppingCart size={30} className="cursor-pointer m-3" />
+              </Link>
             </div>
             <MdAccountCircle
               size={40}

@@ -28,12 +28,6 @@ const AtomUseIcon = atom({
   default: false,
 });
 
-const AtomShopCar = atom({
-  key: "shopCar",
-  default: 0,
-  effects: [localStorageEffect("shopCar")],
-});
-
 const AtomProducts = atom({
   key: "products",
   default: [],
@@ -45,6 +39,5 @@ export {
   AtomUserName,
   AtomIsMember,
   AtomUseIcon,
-  AtomShopCar,
   AtomProducts,
 };

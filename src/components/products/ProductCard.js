@@ -7,11 +7,11 @@ const StyledCard = styled.div`
   background: url(${(props) => props.src}) scroll no-repeat center / cover;
 `;
 
-function ProductCard({ productId, src, title, price, alt, size }) {
+function ProductCard({ productId, src, title, price, alt, size, kind }) {
   return (
     <Link
       to={`/product/:${productId}`}
-      state={{ productId, src, title, price, alt, size }}
+      state={{ productId, src, title, price, alt, size, kind }}
       className="block w-full p-2 border-0 md:w-1/3 lg:w-1/5 mb-4"
     >
       <Card

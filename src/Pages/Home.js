@@ -1,5 +1,4 @@
 import Default from "../components/layout/Default";
-import getProducts from "../axios/getProducts";
 import React from "react";
 import ProductCard from "../components/products/ProductCard";
 import { useRecoilValue } from "recoil";
@@ -21,6 +20,7 @@ function Home() {
                 price={product.price}
                 alt={product.alt}
                 size={product.size}
+                kind={product.kind}
               />
             );
           })}
