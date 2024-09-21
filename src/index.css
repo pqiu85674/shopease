@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next {
+  color: rgb(163 163 163); /* 改變箭頭顏色 */
+}
+
+.ant-carousel .slick-prev:active,
+.ant-carousel .slick-next:active {
+  color: rgb(82 82 82); /* 改變箭頭 hover 的顏色 */
+}

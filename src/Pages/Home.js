@@ -14,12 +14,12 @@ function Home() {
           {products.map((product) => {
             return (
               <ProductCard
-                key={product.id} // 確保每個元素有唯一的 key
+                key={product.id}
                 productId={product.id}
-                src={product.src[0]}
+                src={product.src}
                 title={product.title}
                 price={product.price}
-                pictureName={product.pictureName}
+                alt={product.alt}
                 size={product.size}
               />
             );
