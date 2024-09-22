@@ -28,8 +28,13 @@ const AtomUseIcon = atom({
   default: false,
 });
 
-const AtomProducts = atom({
+const AtomGetAllProductsFromFirebase = atom({
   key: "products",
+  default: [],
+});
+
+const AtomGetCustomerShopCarFromFirebase = atom({
+  key: "shopCar",
   default: [],
 });
 
@@ -39,5 +44,6 @@ export {
   AtomUserName,
   AtomIsMember,
   AtomUseIcon,
-  AtomProducts,
+  AtomGetAllProductsFromFirebase,
+  AtomGetCustomerShopCarFromFirebase,
 };

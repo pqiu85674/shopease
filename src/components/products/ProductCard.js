@@ -1,16 +1,13 @@
 import { Card } from "antd";
-import styled from "styled-components";
+import StyledCard from "../common/StyledCard";
 import { Link } from "react-router-dom";
 
-const StyledCard = styled.div`
-  padding-top: 100%;
-  background: url(${(props) => props.src}) scroll no-repeat center / cover;
-`;
+
 
 function ProductCard({ productId, src, title, price, alt, size, kind }) {
   return (
     <Link
-      to={`/product/:${productId}`}
+      to={`/product/${productId}`}
       state={{ productId, src, title, price, alt, size, kind }}
       className="block w-full p-2 border-0 md:w-1/3 lg:w-1/5 mb-4"
     >

@@ -9,11 +9,11 @@ import Product from "./Pages/Product";
 import ShopCar from "./Pages/ShopCar";
 import React from "react";
 import getProducts from "./axios/getProducts";
-import { AtomProducts } from "./Recoil/Atom";
+import { AtomGetAllProductsFromFirebase } from "./Recoil/Atom";
 import { useSetRecoilState } from "recoil";
 
 function App() {
-  const setProducts = useSetRecoilState(AtomProducts);
+  const setProducts = useSetRecoilState(AtomGetAllProductsFromFirebase);
   React.useEffect(() => {
     async function fetchProducts() {
       try {
@@ -24,7 +24,8 @@ function App() {
       }
     }
     fetchProducts();
-  }, []);
+  }, [setProducts]);
+
 
   return (
     <ConfigProvider

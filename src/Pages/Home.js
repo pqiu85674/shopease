@@ -2,10 +2,10 @@ import Default from "../components/layout/Default";
 import React from "react";
 import ProductCard from "../components/products/ProductCard";
 import { useRecoilValue } from "recoil";
-import { AtomProducts } from "../Recoil/Atom";
+import { AtomGetAllProductsFromFirebase } from "../Recoil/Atom";
 
 function Home() {
-  const products = useRecoilValue(AtomProducts);
+  const products = useRecoilValue(AtomGetAllProductsFromFirebase);
   return (
     <div>
       <Default>

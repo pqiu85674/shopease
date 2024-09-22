@@ -4,21 +4,16 @@ import Container from "../components/common/Container";
 import { InputNumber, Button, Carousel, Radio } from "antd";
 import { HiCurrencyDollar } from "react-icons/hi2";
 import { FaShoppingCart } from "react-icons/fa";
-import styled from "styled-components";
+import StyledCard from "../components/common/StyledCard";
 import { AtomIsMember, AtomUserName } from "../Recoil/Atom";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import React from "react";
 import addShopCar from "../axios/addShopCar";
 
-const StyledCard = styled.div`
-  padding-top: 100%;
-  background: url(${(props) => props.src}) scroll no-repeat center / cover;
-`;
 
 function Product() {
   const userName = useRecoilValue(AtomUserName);
   const isMember = useRecoilValue(AtomIsMember);
-  // const [shopCar, setShopCar] = useRecoilState(AtomShopCar);
   const navigate = useNavigate();
   const location = useLocation();
   const { productId, src, title, price, alt, size, kind } =
