@@ -5,28 +5,47 @@ import { InputNumber, Button, Carousel, Radio } from "antd";
 import { HiCurrencyDollar } from "react-icons/hi2";
 import { FaShoppingCart } from "react-icons/fa";
 import StyledCard from "../components/common/StyledCard";
-import { AtomIsMember, AtomUserName } from "../Recoil/Atom";
-import { useRecoilValue } from "recoil";
+import {
+  AtomGetCustomerShopCarFromFirebase,
+  AtomIsMember,
+  AtomUserName,
+} from "../Recoil/Atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import React from "react";
-import addShopCar from "../axios/addShopCar";
-
+import updateShopCar from "../axios/updateShopCar";
+import updateShopCarClient from "../utils/updateShopCarClient";
+import { FaCheckCircle } from "react-icons/fa";
+import TailwindCenter from "../components/common/TailwindCenter";
 
 function Product() {
   const userName = useRecoilValue(AtomUserName);
   const isMember = useRecoilValue(AtomIsMember);
   const navigate = useNavigate();
   const location = useLocation();
-  const { productId, src, title, price, alt, size, kind } =
-    location.state || {};
+  const {
+    productId,
+    src,
+    title,
+    price,
+    alt,
+    size,
+    kind,
+    customerSize,
+    customerKind,
+    customerCount,
+  } = location.state || {};
   const [selectSize, setSelectSize] = React.useState();
   const [selectKind, setSelectKind] = React.useState();
-  const [count, setCount] = React.useState(1);
+  const [count, setCount] = React.useState(customerCount ? customerCount : 1);
   const refKind = React.useRef();
+  const setShopCar = useSetRecoilState(AtomGetCustomerShopCarFromFirebase);
+  const [isVisible, setIsVisible] = React.useState(false);
 
-  function handleSrc() {
-    return src.map((item, index) => {
-      return <StyledCard key={productId} src={item} alt={alt[index]} />;
-    });
+  function handle() {
+    setIsVisible(true);
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 2000);
   }
 
   return (
@@ -41,11 +60,16 @@ function Product() {
                 arrows
                 className="h-full w-64"
                 ref={(ref) => {
-                  // console.log(ref);
                   refKind.current = ref;
                 }}
               >
-                {handleSrc()}
+                <StyledCard
+                  src={
+                    alt.indexOf(customerKind) === -1
+                      ? src[0]
+                      : src[alt.indexOf(customerKind)]
+                  }
+                />
               </Carousel>
             </div>
             <div className="flex-[3] p-8">
@@ -57,14 +81,17 @@ function Product() {
                 <div className="flex gap-2 my-4">
                   <div>種類：</div>
                   <Radio.Group
+                    defaultValue={customerKind ? customerKind : null}
                     onChange={(e) => {
-                      refKind.current.goTo(e.target.value);
+                      const selectedItem = kind.find(
+                        (item) => item === e.target.value
+                      );
+                      refKind.current.goTo(kind.indexOf(selectedItem));
                       setSelectKind(e.target.value);
-                      console.log(e.target.value);
                     }}
                   >
                     {kind.map((item, index) => (
-                      <Radio key={index} value={index}>
+                      <Radio key={index} value={item}>
                         {item}
                       </Radio>
                     ))}
@@ -75,6 +102,7 @@ function Product() {
                 <div className="flex gap-4 my-4">
                   <div>size：</div>
                   <Radio.Group
+                    defaultValue={customerSize ? customerSize : null}
                     onChange={(e) => {
                       // console.log(e.target.value);
                       setSelectSize(e.target.value);
@@ -91,7 +119,7 @@ function Product() {
               <div className="flex gap-2 items-center">
                 <div>數量：</div>
                 <InputNumber
-                  defaultValue={1}
+                  defaultValue={customerCount ? customerCount : 1}
                   min={1}
                   onChange={(e) => {
                     setCount(e);
@@ -104,15 +132,17 @@ function Product() {
                 <Button
                   className="text-xl"
                   type="primary"
-                  onClick={() => {
+                  onClick={async () => {
                     !isMember && navigate("/signIn");
-                    addShopCar(
+                    await updateShopCar(
                       userName,
                       productId,
                       count,
                       selectSize,
-                      alt[selectKind]
+                      selectKind
                     );
+                    handle();
+                    await updateShopCarClient(userName, setShopCar);
                   }}
                 >
                   <FaShoppingCart />
@@ -121,14 +151,29 @@ function Product() {
                 <Button
                   className="text-xl"
                   type="primary"
-                  onClick={() => {
-                    if (kind.length > 0 && selectKind === undefined) {
+                  onClick={async () => {
+                    if (
+                      kind.length > 0 &&
+                      selectKind === undefined &&
+                      customerKind === undefined
+                    ) {
                       alert("請選擇種類");
-                    } else if (size.length > 0 && selectSize === undefined) {
+                    } else if (
+                      size.length > 0 &&
+                      selectSize === undefined &&
+                      customerSize === undefined
+                    ) {
                       alert("請選擇size");
                     } else if (!isMember) {
                       navigate("/signIn");
                     } else {
+                      await updateShopCar(
+                        userName,
+                        productId,
+                        count,
+                        selectSize,
+                        selectKind
+                      );
                       navigate("/shopCar");
                     }
                   }}
@@ -140,6 +185,10 @@ function Product() {
             </div>
           </div>
         </div>
+        <TailwindCenter isVisible={isVisible}>
+          <FaCheckCircle className="text-neutral-200  mt-4" size={60} />
+          <div className="text-neutral-200 text-weight-900 m-4">已加入購物車</div>
+        </TailwindCenter>
       </Container>
     </div>
   );

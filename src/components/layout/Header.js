@@ -18,6 +18,8 @@ import { FaShoppingCart } from "react-icons/fa";
 import { BiSolidMessageRoundedError } from "react-icons/bi";
 import getProducts from "../../axios/getProducts";
 import axios from "axios";
+import { AtomGetCustomerShopCarFromFirebase } from "../../Recoil/Atom";
+import { useRecoilValue } from "recoil";
 
 function Header() {
   const { collapsed, setCollapsed } = React.useContext(CollapsedContext);
@@ -27,6 +29,7 @@ function Header() {
   const [isMember, setIsMember] = useRecoilState(AtomIsMember);
   const location = useLocation();
   const [useIcon, setUseIcon] = useRecoilState(AtomUseIcon);
+  const shopCar = useRecoilValue(AtomGetCustomerShopCarFromFirebase);
 
   React.useEffect(() => {
     if (location.pathname === "/") {
@@ -104,7 +107,7 @@ function Header() {
             <div className="relative">
               <BiSolidMessageRoundedError
                 className={`text-rose-500 absolute top-2 right-1 ${
-                  0 === 0 ? "hidden" : "block"
+                  shopCar.length > 0 ? "block" : "hidden"
                 }`}
               />
               <Link to="/shopCar">

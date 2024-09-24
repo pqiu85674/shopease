@@ -1,27 +1,19 @@
 import React from "react";
 import Header from "../components/layout/Header";
 import SignInSignUp from "./SignInSignUp";
-import customerShopCar from "../axios/CustomerShopCar";
 import {
   AtomGetCustomerShopCarFromFirebase,
   AtomUserName,
 } from "../Recoil/Atom";
 import { useSetRecoilState, useRecoilValue } from "recoil";
+import updateShopCarClient from "../utils/updateShopCarClient";
 
 function SignIn() {
   const setShopCar = useSetRecoilState(AtomGetCustomerShopCarFromFirebase);
   const userName = useRecoilValue(AtomUserName);
 
   React.useEffect(() => {
-    async function fetchShopCar() {
-      const response = await customerShopCar(userName);
-      setShopCar(
-        Object.entries(response.data).map((element) => {
-          return element;
-        })
-      );
-    }
-    fetchShopCar();
+    updateShopCarClient(userName, setShopCar);
   }, [setShopCar, userName]);
 
   return (
