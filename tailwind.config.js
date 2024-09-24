@@ -4,6 +4,13 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
-}
-
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.translate-xy-center': {
+          transform: 'translate(-50%, -50%)',
+        },
+      });
+    },
+  ],
+};
