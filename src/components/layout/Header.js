@@ -63,14 +63,33 @@ function Header() {
             >
               <FaBars
                 size={36}
-                className={`cursor-pointer ${
-                  location.pathname === "/" ? "inline-block" : "hidden"
-                }`}
+                className={`cursor-pointer
+                `}
+            //     ${
+            //    location.pathname === "/" ? "inline-block" : "hidden"
+            //  }
               />
             </div>
             <Link to="/" className=" inline-block">
               <img src={Logo} alt="Logo" className="block w-16 h-16 " />
             </Link>
+
+            <div
+              className={`text-neutral-300 text-xl font-bold ${
+                location.pathname === "/shopCar" ? "block" : "hidden"
+              }`}
+            >
+              購物車
+            </div>
+
+            <div
+              className={`text-neutral-300 text-xl font-bold ${
+                location.pathname === "/pay" ? "block" : "hidden"
+              }`}
+            >
+              結帳
+            </div>
+
             <button
               onClick={() => {
                 getProducts();
@@ -104,14 +123,15 @@ function Header() {
               isMember ? "block" : "hidden"
             } flex items-center gap-4`}
           >
-            <div className="relative">
-              <BiSolidMessageRoundedError
-                className={`text-rose-500 absolute top-2 right-1 ${
-                  shopCar.length > 0 ? "block" : "hidden"
-                }`}
-              />
+            <div className="relative cursor-pointer">
               <Link to="/shopCar">
-                <FaShoppingCart size={30} className="cursor-pointer m-3" />
+                <BiSolidMessageRoundedError
+                  className={`text-rose-500 absolute top-0 right-0 ${
+                    shopCar.length > 0 ? "block" : "hidden"
+                  }`}
+                  size={20}
+                />
+                <FaShoppingCart size={30} className="m-2 mr-3" />
               </Link>
             </div>
             <MdAccountCircle

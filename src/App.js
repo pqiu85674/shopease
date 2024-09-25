@@ -11,6 +11,7 @@ import React from "react";
 import getProducts from "./axios/getProducts";
 import { AtomGetAllProductsFromFirebase } from "./Recoil/Atom";
 import { useSetRecoilState } from "recoil";
+import Pay from "./Pages/Pay";
 
 function App() {
   const setProducts = useSetRecoilState(AtomGetAllProductsFromFirebase);
@@ -48,6 +49,7 @@ function App() {
             <Route path="/signUp" element={<SignUp />}></Route>
             <Route path="/product/:path" element={<Product />}></Route>
             <Route path="/shopCar" element={<ShopCar />}></Route>
+            <Route path="/pay" element={<Pay />}></Route>
           </Routes>
         </CollapsedProvider>
       </BrowserRouter>

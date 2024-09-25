@@ -79,7 +79,7 @@ const Default = ({ children }) => {
           style={layoutStyle}
           className={`bg-neutral-500 transition-all duration-200 `}
         >
-          <Content className="m-4 ">
+          <Content className="m-4 relative">
             <div
               style={{
                 padding: 24,
