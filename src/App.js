@@ -12,6 +12,7 @@ import getProducts from "./axios/getProducts";
 import { AtomGetAllProductsFromFirebase } from "./Recoil/Atom";
 import { useSetRecoilState } from "recoil";
 import Pay from "./Pages/Pay";
+import Account from "./Pages/Account";
 
 function App() {
   const setProducts = useSetRecoilState(AtomGetAllProductsFromFirebase);
@@ -26,7 +27,6 @@ function App() {
     }
     fetchProducts();
   }, [setProducts]);
-
 
   return (
     <ConfigProvider
@@ -50,6 +50,7 @@ function App() {
             <Route path="/product/:path" element={<Product />}></Route>
             <Route path="/shopCar" element={<ShopCar />}></Route>
             <Route path="/pay" element={<Pay />}></Route>
+            <Route path="/account" element={<Account />}></Route>
           </Routes>
         </CollapsedProvider>
       </BrowserRouter>
