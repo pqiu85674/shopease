@@ -61,14 +61,7 @@ function Header() {
                 setCollapsed(!collapsed);
               }}
             >
-              <FaBars
-                size={36}
-                className={`cursor-pointer
-                `}
-            //     ${
-            //    location.pathname === "/" ? "inline-block" : "hidden"
-            //  }
-              />
+              <FaBars size={36} className="cursor-pointer" />
             </div>
             <Link to="/" className=" inline-block">
               <img src={Logo} alt="Logo" className="block w-16 h-16 " />
@@ -94,7 +87,7 @@ function Header() {
               onClick={() => {
                 getProducts();
                 axios
-                  .get("http://localhost:3000/addProducts")
+                  .get("https://server-9atm.onrender.com/addProducts")
                   .then((response) => {
                     console.log(response);
                   })

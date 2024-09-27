@@ -11,6 +11,7 @@ import { Input, Space, Button, Divider } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import signUp from "../axios/signUp";
 import signIn from "../axios/signIn";
+import signInClient from "../utils/signInClient";
 
 function SignInSignUp() {
   const isSignIn = useRecoilValue(AtomIsSignIn);
@@ -29,13 +30,18 @@ function SignInSignUp() {
         setEmail("");
       } else {
         try {
-          const response = await signIn(email, password);
-          console.log("signIn:response", response);
+          const response = await signInClient(email, password);
+          console.log(response);
           if (response.status === "success") {
-            alert(response.message);
-            setIsMember(true);
-            setUserName(response.user.displayName);
-            navigate("/");
+            const result = await signIn(response.idToken);
+            console.log(result);
+
+            if (result.userName) {
+              alert(response.message);
+              setIsMember(true);
+              setUserName(response.userName);
+              navigate("/");
+            }
           } else if (response.data.message === "密碼錯誤") {
             alert(response.data.message);
             setPassword("");
@@ -53,7 +59,9 @@ function SignInSignUp() {
             setEmail("");
             setPassword("");
           }
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       }
     } else if (isSignUp) {
       if (email.indexOf("@gmail.com") < 1) {

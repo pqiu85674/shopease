@@ -1,17 +1,13 @@
 import axios from "axios";
 
-async function signIn(email, password) {
+async function signIn(idToken) {
   try {
-    const response = await axios.post("http://localhost:3000/signIn", {
-      email,
-      password,
+    const response = await axios.post("https://server-9atm.onrender.com/signIn", {
+      idToken,
     });
-    if (response.data.status === "success") {
-      return response.data;
-    } else {
-      return response;
-    }
+    return response.data;
   } catch (error) {
+    console.log("signIn errrrr", error);
     return error;
   }
 }

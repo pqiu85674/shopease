@@ -1,20 +1,24 @@
 import React from "react";
 import {
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
-  UploadOutlined,
+  // AppstoreOutlined,
+  // BarChartOutlined,
+  // CloudOutlined,
+  // ShopOutlined,
+  // TeamOutlined,
+  // UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
+  // VideoCameraOutlined,
 } from "@ant-design/icons";
+
+import { IoMdHome } from "react-icons/io";
+
 import { Layout, Menu, theme } from "antd";
 import Header from "./Header";
 import CollapsedContext from "../Contexts/CollapsedContext";
 import { AtomUseIcon } from "../../Recoil/Atom";
 import { useSetRecoilState } from "recoil";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
 const { Content, Sider } = Layout;
 const siderStyle = {
@@ -28,24 +32,38 @@ const siderStyle = {
   scrollbarColor: "unset",
 };
 const items = [
+  IoMdHome,
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  AppstoreOutlined,
-  TeamOutlined,
-  ShopOutlined,
-].map((icon, index) => ({
-  key: String(index + 1),
-  icon: React.createElement(icon),
-  label: `nav ${index + 1}`,
-}));
+  // VideoCameraOutlined,
+  // UploadOutlined,
+  // BarChartOutlined,
+  // CloudOutlined,
+  // AppstoreOutlined,
+  // TeamOutlined,
+  // ShopOutlined,
+].map((icon, index) => {
+  let label = "";
+  switch (index) {
+    case 0:
+      label = "回首頁";
+      break;
+    case 1:
+      label = "我的檔案";
+      break;
+    default:
+      break;
+  }
+  return {
+    key: String(index + 1),
+    icon: React.createElement(icon),
+    label: label,
+  };
+});
 
 const Default = ({ children }) => {
-  // const [collapsed, setCollapsed] = React.useState(false);
   const { collapsed } = React.useContext(CollapsedContext);
   const setUseIcon = useSetRecoilState(AtomUseIcon);
+  const navigate = useNavigate();
 
   const layoutStyle = React.useMemo(
     () => ({
@@ -73,6 +91,18 @@ const Default = ({ children }) => {
             mode="inline"
             items={items}
             className="bg-neutral-600"
+            onClick={(e) => {
+              switch (e.key) {
+                case "1":
+                  navigate("/");
+                  break;
+                case "2":
+                  navigate("/account");
+                  break;
+                default:
+                  break;
+              }
+            }}
           />
         </Sider>
         <Layout
