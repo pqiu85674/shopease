@@ -1,8 +1,8 @@
 import axios from "axios";
 
-async function customerShopCar(userName) {
-  const result = await axios.post("https://server-9atm.onrender.com/customerShopCar", {
-    userName,
+async function customerShopCar(userUid) {
+  const result = await axios.post("http://localhost:3000/customerShopCar", {
+    userUid,
   });
   return result;
 }

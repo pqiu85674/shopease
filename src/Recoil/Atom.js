@@ -17,6 +17,12 @@ const AtomUserName = atom({
   effects: [localStorageEffect("userName")],
 });
 
+const AtomUserUid = atom({
+  key: "userUid",
+  default: "",
+  effects: [localStorageEffect("userUid")],
+});
+
 const AtomIsMember = atom({
   key: "isMember",
   default: false,
@@ -42,6 +48,7 @@ export {
   AtomIsSignIn,
   AtomIsSignUp,
   AtomUserName,
+  AtomUserUid,
   AtomIsMember,
   AtomUseIcon,
   AtomGetAllProductsFromFirebase,

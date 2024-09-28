@@ -6,6 +6,7 @@ import { AtomGetAllProductsFromFirebase } from "../Recoil/Atom";
 
 function Home() {
   const products = useRecoilValue(AtomGetAllProductsFromFirebase);
+  // console.log(products);
   return (
     <div>
       <Default>

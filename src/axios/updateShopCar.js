@@ -1,15 +1,18 @@
 import axios from "axios";
 
-async function updateShopCar(userName, productId, price, count, size, kind) {
+async function updateShopCar(userUid, productId, price, count, size, kind) {
   try {
-    const result = await axios.patch("https://server-9atm.onrender.com/updateShopCar", {
-      userName,
-      productId,
-      price,
-      count,
-      size,
-      kind,
-    });
+    const result = await axios.patch(
+      "http://localhost:3000/updateShopCar",
+      {
+        userUid,
+        productId,
+        price,
+        count,
+        size,
+        kind,
+      }
+    );
     return result;
   } catch (error) {
     console.log(error);

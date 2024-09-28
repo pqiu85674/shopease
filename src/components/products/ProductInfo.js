@@ -7,6 +7,7 @@ import {
   AtomGetCustomerShopCarFromFirebase,
   AtomIsMember,
   AtomUserName,
+  AtomUserUid,
 } from "../../Recoil/Atom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import React from "react";
@@ -29,13 +30,14 @@ const ProductInfo = ({
 }) => {
   const userName = useRecoilValue(AtomUserName);
   const isMember = useRecoilValue(AtomIsMember);
+  const userUid = useRecoilValue(AtomUserUid);
   const navigate = useNavigate();
   const [selectSize, setSelectSize] = React.useState();
   const [selectKind, setSelectKind] = React.useState();
   const [count, setCount] = React.useState(customerCount ? customerCount : 1);
   const refKind = React.useRef();
   const setShopCar = useSetRecoilState(AtomGetCustomerShopCarFromFirebase);
-  
+
   const [isVisible, setIsVisible] = React.useState(false);
 
   function handle() {
@@ -127,7 +129,7 @@ const ProductInfo = ({
                 onClick={async () => {
                   !isMember && navigate("/signIn");
                   await updateShopCar(
-                    userName,
+                    userUid,
                     productId,
                     price,
                     count,
@@ -135,7 +137,7 @@ const ProductInfo = ({
                     selectKind
                   );
                   handle();
-                  await updateShopCarClient(userName, setShopCar);
+                  await updateShopCarClient(userUid, setShopCar);
                 }}
               >
                 <FaShoppingCart />
@@ -161,7 +163,7 @@ const ProductInfo = ({
                     navigate("/signIn");
                   } else {
                     await updateShopCar(
-                      userName,
+                      userUid,
                       productId,
                       price,
                       count,

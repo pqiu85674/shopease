@@ -3,6 +3,7 @@ import {
   AtomIsSignIn,
   AtomIsSignUp,
   AtomUserName,
+  AtomUserUid,
   AtomIsMember,
 } from "../Recoil/Atom";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
@@ -12,96 +13,189 @@ import { Link, useNavigate } from "react-router-dom";
 import signUp from "../axios/signUp";
 import signIn from "../axios/signIn";
 import signInClient from "../utils/signInClient";
+import signUpClient from "../utils/signUpClient";
 
 function SignInSignUp() {
   const isSignIn = useRecoilValue(AtomIsSignIn);
   const isSignUp = useRecoilValue(AtomIsSignUp);
   const setIsMember = useSetRecoilState(AtomIsMember);
   const [userName, setUserName] = useRecoilState(AtomUserName);
+  const setUserUid = useSetRecoilState(AtomUserUid);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const navigate = useNavigate();
 
-  async function handleSignInSignUp() {
-    if (isSignIn) {
-      if (email.indexOf("@gmail.com") < 1) {
-        alert("請輸入正確email");
-        setEmail("");
-      } else {
-        try {
-          const response = await signInClient(email, password);
-          console.log(response);
-          if (response.status === "success") {
-            const result = await signIn(response.idToken);
-            console.log(result);
-
-            if (result.userName) {
-              alert(response.message);
-              setIsMember(true);
-              setUserName(response.userName);
-              navigate("/");
-            }
-          } else if (response.data.message === "密碼錯誤") {
-            alert(response.data.message);
-            setPassword("");
-          } else if (response.data.message === "帳號不存在") {
-            alert(response.data.message);
-            setEmail("");
-            setPassword("");
-          } else if (response.data.message === "無效的憑證") {
-            alert(response.data.message);
-            setEmail("");
-            setPassword("");
-          } else {
-            alert("其他錯誤");
-            console.log("其他錯誤", response.data.message);
-            setEmail("");
-            setPassword("");
-          }
-        } catch (error) {
-          console.log(error);
+  async function handleSignIn() {
+    try {
+      const response = await signInClient(email, password);
+      if (response.status === "success") {
+        const result = await signIn(response.idToken);
+        if (result.status === "success") {
+          setUserUid(result.uid);
+          alert(result.message);
+          setIsMember(true);
+          setUserName(result.userName);
+          navigate("/");
+        } else {
+          alert("您還不是會員，請先註冊");
+          navigate("/signUp");
         }
-      }
-    } else if (isSignUp) {
-      if (email.indexOf("@gmail.com") < 1) {
-        alert("請輸入正確email");
+      } else if (response.message === "密碼錯誤") {
+        alert(response.message);
+        setPassword("");
+      } else if (response.message === "帳號不存在") {
+        alert(response.message);
         setEmail("");
-      } else if (password !== confirmPassword) {
+        setPassword("");
+      } else if (response.message === "無效的憑證") {
+        alert(response.message);
+        setEmail("");
+        setPassword("");
+      } else {
+        alert("其他錯誤");
+        console.log("其他錯誤", response.message);
+        setEmail("");
+        setPassword("");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleSignInSignUp() {
+    if (email.indexOf("@gmail.com") < 1) {
+      alert("請輸入正確email");
+      setEmail("");
+      return;
+    }
+    if (isSignUp) {
+      if (password !== confirmPassword) {
         alert("兩次密碼輸入不一致");
         setPassword("");
         setConfirmPassword("");
       } else if (password === confirmPassword) {
         try {
-          const response = await signUp(email, password, userName);
-          console.log("signUp:response", response);
-          if (response.data.status === "success") {
-            alert(response.data.message);
-            setIsMember(true);
-            navigate("/");
-          } else if (response.data.message === "此電子郵件已經被註冊過") {
-            alert(response.data.message);
+          const signUpClientResponse = await signUpClient(
+            userName,
+            email,
+            password
+          );
+          console.log(signUpClientResponse)
+          if (signUpClientResponse.status === "success") {
+            alert("登入成功");
+            console.log(signUpClientResponse);
+            // setUserUid(signUpClientResponse)
+          } else if (
+            signUpClientResponse.message === "此電子郵件已經被註冊過"
+          ) {
+            alert(signUpClientResponse.message);
             setUserName("");
             setEmail("");
             setPassword("");
             setConfirmPassword("");
-            navigate("/signIn");
-          } else if (response.data.message === "無效的電子郵件格式") {
-            alert(response.data.message);
+          } else if (signUpClientResponse.message === "無效的電子郵件格式") {
+            alert(signUpClientResponse.message);
             setEmail("");
-          } else if (response.data.message === "密碼強度不足") {
-            alert(response.data.message);
+          } else if (signUpClientResponse.message === "密碼強度不足") {
+            alert(signUpClientResponse.message);
             setPassword("");
             setConfirmPassword("");
           } else {
-            alert(response.data.message);
+            alert("其他錯誤");
+            console.log("其他錯誤",signUpClientResponse);
           }
         } catch (error) {
           console.error("請求失敗:", error);
           alert("發生錯誤，請稍後再試");
         }
       }
+    } else if (isSignIn) {
+      handleSignIn();
     }
+
+    //   if (isSignIn) {
+    //     if (email.indexOf("@gmail.com") < 1) {
+    //       alert("請輸入正確email");
+    //       setEmail("");
+    //     } else {
+    //       try {
+    //         const response = await signInClient(email, password);
+    //         console.log("response", response);
+    //         if (response.status === "success") {
+    //           const result = await signIn(response.idToken);
+
+    //           if (result.message === "Token 驗證成功") {
+    //             alert(response.message);
+    //             setIsMember(true);
+    //             setUserName(result.userName);
+    //             navigate("/");
+    //           } else {
+    //             alert("您還不是會員，請先註冊");
+    //             navigate("/signUp");
+    //           }
+    //         } else if (response.message === "密碼錯誤") {
+    //           alert(response.message);
+    //           setPassword("");
+    //         } else if (response.message === "帳號不存在") {
+    //           alert(response.message);
+    //           setEmail("");
+    //           setPassword("");
+    //         } else if (response.message === "無效的憑證") {
+    //           alert(response.message);
+    //           setEmail("");
+    //           setPassword("");
+    //         } else {
+    //           alert("其他錯誤");
+    //           console.log("其他錯誤", response.message);
+    //           setEmail("");
+    //           setPassword("");
+    //         }
+    //       } catch (error) {
+    //         console.log(error);
+    //       }
+    //     }
+    //   } else if (isSignUp) {
+    //     if (email.indexOf("@gmail.com") < 1) {
+    //       alert("請輸入正確email");
+    //       setEmail("");
+    //     } else if (password !== confirmPassword) {
+    //       alert("兩次密碼輸入不一致");
+    //       setPassword("");
+    //       setConfirmPassword("");
+    //     } else if (password === confirmPassword) {
+    //       try {
+    //         const response = await signUpClient(userName, email, password);
+    //         console.log("signUp response", response);
+    //         // const response = await signUp(email, password, userName);
+    //         // console.log("signUp:response", response);
+    //         // if (response.data.status === "success") {
+    //         //   alert(response.data.message);
+    //         //   setIsMember(true);
+    //         //   navigate("/");
+    //         // } else if (response.data.message === "此電子郵件已經被註冊過") {
+    //         //   alert(response.data.message);
+    //         //   setUserName("");
+    //         //   setEmail("");
+    //         //   setPassword("");
+    //         //   setConfirmPassword("");
+    //         //   navigate("/signIn");
+    //         // } else if (response.data.message === "無效的電子郵件格式") {
+    //         //   alert(response.data.message);
+    //         //   setEmail("");
+    //         // } else if (response.data.message === "密碼強度不足") {
+    //         //   alert(response.data.message);
+    //         //   setPassword("");
+    //         //   setConfirmPassword("");
+    //         // } else {
+    //         //   alert(response.data.message);
+    //         // }
+    //       } catch (error) {
+    //         console.error("請求失敗:", error);
+    //         alert("發生錯誤，請稍後再試");
+    //       }
+    //     }
+    //   }
   }
 
   return (

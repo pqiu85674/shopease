@@ -1,16 +1,13 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import db from "../firebase/firebase";
-
 async function signInClient(email, password) {
   try {
-    const auth = getAuth(db);
+    const auth = getAuth();
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
       password
     );
     const user = userCredential.user;
-
     const idToken = await user.getIdToken();
     return { status: "success", message: "成功登入", idToken };
   } catch (error) {

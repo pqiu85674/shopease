@@ -2,8 +2,6 @@ import { Card } from "antd";
 import StyledCard from "../common/StyledCard";
 import { Link } from "react-router-dom";
 
-
-
 function ProductCard({ productId, src, title, price, alt, size, kind }) {
   return (
     <Link

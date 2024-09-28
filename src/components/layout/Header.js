@@ -87,7 +87,7 @@ function Header() {
               onClick={() => {
                 getProducts();
                 axios
-                  .get("https://server-9atm.onrender.com/addProducts")
+                  .get("http://localhost:300/addProducts")
                   .then((response) => {
                     console.log(response);
                   })

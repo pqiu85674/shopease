@@ -2,6 +2,7 @@ import {
   AtomGetCustomerShopCarFromFirebase,
   AtomGetAllProductsFromFirebase,
   AtomUserName,
+  AtomUserUid,
 } from "../../Recoil/Atom";
 import React from "react";
 import { Checkbox } from "antd";
@@ -27,14 +28,15 @@ function ShopCarInfo({
   const AllProducts = useRecoilValue(AtomGetAllProductsFromFirebase);
   const navigate = useNavigate();
   const userName = useRecoilValue(AtomUserName);
+  const userUid = useRecoilValue(AtomUserUid);
   const [deleteProductId, setDeleteProductId] = React.useState();
   const [currentPrice, setCurrentValue] = React.useState(0);
 
   React.useEffect(() => {
     (async () => {
       if (checkDelete) {
-        await deleteShopCar(userName, deleteProductId);
-        await updateShopCarClient(userName, setShopCar);
+        await deleteShopCar(userUid, deleteProductId);
+        await updateShopCarClient(userUid, setShopCar);
         setCheckDelete(false);
         setSum(sum - currentPrice);
       }
@@ -52,7 +54,7 @@ function ShopCarInfo({
 
   React.useEffect(() => {
     (async () => {
-      await updateShopCarClient(userName, setShopCar);
+      await updateShopCarClient(userUid, setShopCar);
     })();
   }, [userName, setShopCar]);
 
@@ -74,9 +76,7 @@ function ShopCarInfo({
                     setSum(sum + products.price * products.count);
                   } else {
                     setChecked(
-                      [...checked].filter(
-                        (item) => item !== products.productId
-                      )
+                      [...checked].filter((item) => item !== products.productId)
                     );
                     setSum(sum - products.price * products.count);
                   }
@@ -87,9 +87,7 @@ function ShopCarInfo({
                   src={
                     AllProduct.alt.indexOf(products.kind) === -1
                       ? AllProduct.src[0]
-                      : AllProduct.src[
-                          AllProduct.alt.indexOf(products.kind)
-                        ]
+                      : AllProduct.src[AllProduct.alt.indexOf(products.kind)]
                   }
                   className="cursor-pointer"
                   onClick={() => {
@@ -138,7 +136,7 @@ function ShopCarInfo({
                           setSum(sum + products.price);
                         }
                         updateShopCar(
-                          userName,
+                          userUid,
                           products.productId,
                           products.price,
                           products.count + 1,
@@ -179,7 +177,7 @@ function ShopCarInfo({
                             setSum(sum - products.price);
                           }
                           updateShopCar(
-                            userName,
+                            userUid,
                             products.productId,
                             products.price,
                             products.count - 1,
