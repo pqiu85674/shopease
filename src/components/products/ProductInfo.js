@@ -12,9 +12,9 @@ import {
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import React from "react";
 import updateShopCar from "../../axios/updateShopCar";
-import updateShopCarClient from "../../utils/updateShopCarClient";
 import { FaCheckCircle } from "react-icons/fa";
 import TailwindCenter from "../common/TailwindCenter";
+import customerShopCar from "../../axios/customerShopCar";
 
 const ProductInfo = ({
   productId,
@@ -90,7 +90,6 @@ const ProductInfo = ({
                     const selectedItem = kind.find(
                       (item) => item === e.target.value
                     );
-                    console.log("selectedItem", selectedItem);
                     refKind.current.goTo(kind.indexOf(selectedItem));
                     setSelectKind(e.target.value);
                   }}
@@ -147,8 +146,9 @@ const ProductInfo = ({
                     selectSize,
                     selectKind
                   );
+                  console.log(await customerShopCar(userUid));
+                  setShopCar(await customerShopCar(userUid));
                   handleVisible();
-                  await updateShopCarClient(userUid, setShopCar);
                 }}
               >
                 <FaShoppingCart />

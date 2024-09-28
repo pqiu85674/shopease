@@ -20,7 +20,7 @@ import { BiSolidMessageRoundedError } from "react-icons/bi";
 import getProducts from "../../axios/getProducts";
 import axios from "axios";
 import { AtomGetCustomerShopCarFromFirebase } from "../../Recoil/Atom";
-import updateShopCarClient from "../../utils/updateShopCarClient";
+import customerShopCar from "../../axios/customerShopCar";
 
 function Header() {
   const { collapsed, setCollapsed } = React.useContext(CollapsedContext);
@@ -49,8 +49,10 @@ function Header() {
   }, [location, setIsSignIn, setIsSignUp]);
 
   React.useEffect(() => {
-    updateShopCarClient(userUid, setShopCar);
-  }, [setShopCar, userUid]);
+    (async () => {
+      setShopCar(await customerShopCar(userUid));
+    })();
+  }, [userUid]);
 
   return (
     <div>

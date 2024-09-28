@@ -9,9 +9,9 @@ import { Checkbox } from "antd";
 import StyledCard from "../common/StyledCard";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import updateShopCarClient from "../../utils/updateShopCarClient";
 import deleteShopCar from "../../axios/deleteShopCar";
 import updateShopCar from "../../axios/updateShopCar";
+import customerShopCar from "../../axios/customerShopCar";
 
 function ShopCarInfo({
   setShowDelete,
@@ -36,7 +36,7 @@ function ShopCarInfo({
     (async () => {
       if (checkDelete) {
         await deleteShopCar(userUid, deleteProductId);
-        await updateShopCarClient(userUid, setShopCar);
+        setShopCar(await customerShopCar(userUid));
         setCheckDelete(false);
         setSum(sum - currentPrice);
       }
@@ -54,9 +54,9 @@ function ShopCarInfo({
 
   React.useEffect(() => {
     (async () => {
-      await updateShopCarClient(userUid, setShopCar);
+      setShopCar(await customerShopCar(userUid));
     })();
-  }, [userName, setShopCar]);
+  }, [userUid, setShopCar]);
 
   function handleInfo(products) {
     return AllProducts.map((AllProduct, index) => {
