@@ -40,7 +40,23 @@ const ProductInfo = ({
 
   const [isVisible, setIsVisible] = React.useState(false);
 
-  function handle() {
+  React.useEffect(() => {
+    if (customerKind) {
+      refKind.current.goTo(kind.indexOf(customerKind));
+    }
+  }, [customerKind]);
+
+  function picture() {
+    if (src.length > 1) {
+      return src.map((item, index) => {
+        return <StyledCard key={index} src={item} />;
+      });
+    } else {
+      return <StyledCard src={src[0]} />;
+    }
+  }
+
+  function handleVisible() {
     setIsVisible(true);
     setTimeout(() => {
       setIsVisible(false);
@@ -59,13 +75,7 @@ const ProductInfo = ({
                 refKind.current = ref;
               }}
             >
-              <StyledCard
-                src={
-                  alt.indexOf(customerKind) === -1
-                    ? src[0]
-                    : src[alt.indexOf(customerKind)]
-                }
-              />
+              {picture()}
             </Carousel>
           </div>
           <div className="flex-[3] p-8">
@@ -80,6 +90,7 @@ const ProductInfo = ({
                     const selectedItem = kind.find(
                       (item) => item === e.target.value
                     );
+                    console.log("selectedItem", selectedItem);
                     refKind.current.goTo(kind.indexOf(selectedItem));
                     setSelectKind(e.target.value);
                   }}
@@ -136,7 +147,7 @@ const ProductInfo = ({
                     selectSize,
                     selectKind
                   );
-                  handle();
+                  handleVisible();
                   await updateShopCarClient(userUid, setShopCar);
                 }}
               >

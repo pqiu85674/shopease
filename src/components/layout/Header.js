@@ -8,10 +8,11 @@ import {
   AtomIsSignIn,
   AtomIsSignUp,
   AtomUserName,
+  AtomUserUid,
   AtomIsMember,
   AtomUseIcon,
 } from "../../Recoil/Atom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useLocation } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
@@ -19,7 +20,7 @@ import { BiSolidMessageRoundedError } from "react-icons/bi";
 import getProducts from "../../axios/getProducts";
 import axios from "axios";
 import { AtomGetCustomerShopCarFromFirebase } from "../../Recoil/Atom";
-import { useRecoilValue } from "recoil";
+import updateShopCarClient from "../../utils/updateShopCarClient";
 
 function Header() {
   const { collapsed, setCollapsed } = React.useContext(CollapsedContext);
@@ -27,9 +28,12 @@ function Header() {
   const [isSignUp, setIsSignUp] = useRecoilState(AtomIsSignUp);
   const [userName, setUserName] = useRecoilState(AtomUserName);
   const [isMember, setIsMember] = useRecoilState(AtomIsMember);
+  const [shopCar, setShopCar] = useRecoilState(
+    AtomGetCustomerShopCarFromFirebase
+  );
   const location = useLocation();
   const [useIcon, setUseIcon] = useRecoilState(AtomUseIcon);
-  const shopCar = useRecoilValue(AtomGetCustomerShopCarFromFirebase);
+  const userUid = useRecoilValue(AtomUserUid);
 
   React.useEffect(() => {
     if (location.pathname === "/") {
@@ -43,6 +47,10 @@ function Header() {
       setIsSignUp(true);
     }
   }, [location, setIsSignIn, setIsSignUp]);
+
+  React.useEffect(() => {
+    updateShopCarClient(userUid, setShopCar);
+  }, [setShopCar, userUid]);
 
   return (
     <div>
@@ -87,7 +95,7 @@ function Header() {
               onClick={() => {
                 getProducts();
                 axios
-                  .get("http://localhost:300/addProducts")
+                  .get("https://server-e6wn.onrender.com/addProducts")
                   .then((response) => {
                     console.log(response);
                   })

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 async function deleteShopCar(userUid, product) {
-  await axios.delete("http://localhost:3000/deleteShopCar", {
+  await axios.delete("https://server-e6wn.onrender.com/deleteShopCar", {
     headers: {
       "Content-Type": "application/json",
     },

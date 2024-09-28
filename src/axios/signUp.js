@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function signUp(email, password, userName) {
   try {
-    const response = await axios.post("http://localhost:3000/signUp", {
+    const response = await axios.post("https://server-e6wn.onrender.com/signUp", {
       email,
       password,
       userName,
