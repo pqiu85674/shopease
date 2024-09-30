@@ -6,7 +6,6 @@ import StyledCard from "../common/StyledCard";
 import {
   AtomGetCustomerShopCarFromFirebase,
   AtomIsMember,
-  AtomUserName,
   AtomUserUid,
 } from "../../Recoil/Atom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -28,7 +27,6 @@ const ProductInfo = ({
   customerKind,
   customerCount,
 }) => {
-  const userName = useRecoilValue(AtomUserName);
   const isMember = useRecoilValue(AtomIsMember);
   const userUid = useRecoilValue(AtomUserUid);
   const navigate = useNavigate();

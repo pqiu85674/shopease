@@ -81,11 +81,11 @@ function SignInSignUp() {
             email,
             password
           );
-          console.log(signUpClientResponse)
           if (signUpClientResponse.status === "success") {
             alert("登入成功");
-            console.log(signUpClientResponse);
-            // setUserUid(signUpClientResponse)
+            setUserUid(signUpClientResponse.uid);
+            setIsMember(true);
+            navigate("/");
           } else if (
             signUpClientResponse.message === "此電子郵件已經被註冊過"
           ) {
@@ -103,7 +103,7 @@ function SignInSignUp() {
             setConfirmPassword("");
           } else {
             alert("其他錯誤");
-            console.log("其他錯誤",signUpClientResponse);
+            console.log("其他錯誤", signUpClientResponse);
           }
         } catch (error) {
           console.error("請求失敗:", error);

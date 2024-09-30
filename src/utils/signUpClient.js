@@ -47,7 +47,7 @@ async function signUpClient(userName, email, password) {
 
     await saveToDatabase(uid, userName, email);
 
-    return { status: "success", message: "註冊成功", idToken };
+    return { status: "success", message: "註冊成功", idToken, uid };
   } catch (error) {
     if (error.code === "auth/email-already-in-use") {
       return { status: "error", message: "此電子郵件已經被註冊過" };
