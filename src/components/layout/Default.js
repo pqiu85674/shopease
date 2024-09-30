@@ -9,16 +9,15 @@ import {
   UserOutlined,
   // VideoCameraOutlined,
 } from "@ant-design/icons";
-
+import { FaHistory } from "react-icons/fa";
 import { IoMdHome } from "react-icons/io";
-
 import { Layout, Menu, theme } from "antd";
 import Header from "./Header";
 import CollapsedContext from "../Contexts/CollapsedContext";
 import { AtomUseIcon } from "../../Recoil/Atom";
 import { useSetRecoilState } from "recoil";
 import Footer from "./Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const { Content, Sider } = Layout;
 const siderStyle = {
@@ -34,6 +33,7 @@ const siderStyle = {
 const items = [
   IoMdHome,
   UserOutlined,
+  FaHistory,
   // VideoCameraOutlined,
   // UploadOutlined,
   // BarChartOutlined,
@@ -50,6 +50,9 @@ const items = [
     case 1:
       label = "我的檔案";
       break;
+    case 2:
+      label = "交易紀錄";
+      break;
     default:
       break;
   }
@@ -63,6 +66,8 @@ const items = [
 const Default = ({ children }) => {
   const { collapsed } = React.useContext(CollapsedContext);
   const setUseIcon = useSetRecoilState(AtomUseIcon);
+  const [selectedKeys, setSelectedKeys] = React.useState();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const layoutStyle = React.useMemo(
@@ -75,6 +80,23 @@ const Default = ({ children }) => {
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
+
+  React.useEffect(() => {
+    switch (location.pathname) {
+      case "/":
+        setSelectedKeys(["1"]);
+        break;
+      case "/account":
+        setSelectedKeys(["2"]);
+        break;
+      case "/order":
+        setSelectedKeys(["3"]);
+        break;
+      default:
+        break;
+    }
+  }, [location.pathname]);
+
   return (
     <div>
       <Header />
@@ -87,6 +109,7 @@ const Default = ({ children }) => {
         <Sider style={siderStyle} collapsed={collapsed}>
           <div className="demo-logo-vertical" />
           <Menu
+            selectedKeys={selectedKeys}
             theme="dark"
             mode="inline"
             items={items}
@@ -98,6 +121,9 @@ const Default = ({ children }) => {
                   break;
                 case "2":
                   navigate("/account");
+                  break;
+                case "3":
+                  navigate("/order");
                   break;
                 default:
                   break;
