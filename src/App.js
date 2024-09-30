@@ -13,6 +13,8 @@ import { AtomGetAllProductsFromFirebase } from "./Recoil/Atom";
 import { useSetRecoilState } from "recoil";
 import Pay from "./Pages/Pay";
 import Account from "./Pages/Account";
+import PaymentResult from "./Pages/PaymentResult.js";
+import ECPay from "./Pages/ECPay.js";
 
 function App() {
   const setProducts = useSetRecoilState(AtomGetAllProductsFromFirebase);
@@ -51,6 +53,8 @@ function App() {
             <Route path="/shopCar" element={<ShopCar />}></Route>
             <Route path="/pay" element={<Pay />}></Route>
             <Route path="/account" element={<Account />}></Route>
+            <Route path="/clientReturn" element={<PaymentResult />}></Route>
+            <Route path="/ECPay" element={<ECPay />}></Route>
           </Routes>
         </CollapsedProvider>
       </BrowserRouter>
