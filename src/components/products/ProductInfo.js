@@ -42,7 +42,7 @@ const ProductInfo = ({
     if (customerKind) {
       refKind.current.goTo(kind.indexOf(customerKind));
     }
-  }, [customerKind]);
+  }, [kind,customerKind]);
 
   function picture() {
     if (src.length > 1) {
