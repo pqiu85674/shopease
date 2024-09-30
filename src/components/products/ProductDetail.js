@@ -1,5 +1,5 @@
+import RowAndCol from "../common/RowAndCol";
 import StyledCard from "../common/StyledCard";
-import ProductContainer from "./ProductContainer";
 
 function ProductDetail({ checked, shopCar, AllProducts }) {
   return shopCar.map((product) => {
@@ -9,24 +9,19 @@ function ProductDetail({ checked, shopCar, AllProducts }) {
         const index = checked.indexOf(product.productId);
         if (index > -1) {
           return (
-            <ProductContainer key={index}>
-              <div className="w-16">
-                <StyledCard src={AllProduct.src[0]} />
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="w-14 md:w-16 lg:w-20">
-                  {product.kind ? product.kind : "-"}
+            <RowAndCol
+              col2={
+                <div className="w-full h-full">
+                  <StyledCard src={AllProduct.src[0]} />
                 </div>
-                <div className="w-14 md:w-16 lg:w-20">
-                  {product.size ? product.size : "-"}
-                </div>
-                <div className="w-14 md:w-16 lg:w-20">{product.price}</div>
-                <div className="w-14 md:w-16 lg:w-20">{product.count}</div>
-                <div className="w-14 md:w-16 lg:w-20 text-red-500">
-                  {product.price * product.count}
-                </div>
-              </div>
-            </ProductContainer>
+              }
+              col3={<div>{AllProduct.title}</div>}
+              col4={<div>{product.kind ? product.kind : "-"}</div>}
+              col5={<div>{product.size ? product.size : "-"}</div>}
+              col6={<div>{product.price}</div>}
+              col7={<div>{product.count}</div>}
+              col8={<div>{product.price * product.count}</div>}
+            />
           );
         }
       }

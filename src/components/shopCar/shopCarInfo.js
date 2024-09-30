@@ -12,6 +12,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import deleteShopCar from "../../axios/deleteShopCar";
 import updateShopCar from "../../axios/updateShopCar";
 import customerShopCar from "../../axios/customerShopCar";
+import RowAndCol from "../common/RowAndCol";
 
 function ShopCarInfo({
   setShowDelete,
@@ -50,6 +51,7 @@ function ShopCarInfo({
     setShopCar,
     setCheckDelete,
     setSum,
+    userUid,
   ]);
 
   React.useEffect(() => {
@@ -62,15 +64,11 @@ function ShopCarInfo({
     return AllProducts.map((AllProduct, index) => {
       if (AllProduct.id === products.productId) {
         return (
-          <div
-            key={index}
-            className="p-4 flex items-cneter justify-between w-full"
-          >
-            <div className="flex items-center gap-4">
+          <RowAndCol
+            col1={
               <Checkbox
                 value={products.productId}
                 onChange={(e) => {
-                  // console.log(e.target.checked);
                   if (e.target.checked) {
                     setChecked([...checked, products.productId]);
                     setSum(sum + products.price * products.count);
@@ -82,7 +80,9 @@ function ShopCarInfo({
                   }
                 }}
               ></Checkbox>
-              <div className="w-20 m-2">
+            }
+            col2={
+              <div className="w-full h-hull">
                 <StyledCard
                   src={
                     AllProduct.alt.indexOf(products.kind) === -1
@@ -108,18 +108,23 @@ function ShopCarInfo({
                   }}
                 />
               </div>
-            </div>
-            <div className="flex items-center gap-2 pr-4 md:gap-4 lg:gap-8 ">
-              <div className="w-12 text-center">
+            }
+            col3={<div>{AllProduct.title}</div>}
+            col4={
+              <div className="text-center">
                 {products.kind ? products.kind : "-"}
               </div>
-              <div className="w-12 text-center">
+            }
+            col5={
+              <div className="text-center">
                 {products.size ? products.size : "-"}
               </div>
-              <div className="w-12 text-center">{products.price}</div>
+            }
+            col6={<div className="text-center">{products.price}</div>}
+            col7={
               <div
                 className="w-16 text-center flex gap-2 border border-neutral-800"
-                style={{ margin: -15 }}
+                // style={{ margin: -15 }}
               >
                 <div
                   className="w-10 border-r border-neutral-800 cursor-pointer"
@@ -202,11 +207,13 @@ function ShopCarInfo({
                   -
                 </div>
               </div>
-              <div className="w-16 text-center text-red-500">
+            }
+            col8={
+              <div className="text-center text-red-500">
                 {products.price * products.count}
               </div>
-            </div>
-          </div>
+            }
+          />
         );
       }
       return null;

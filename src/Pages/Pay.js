@@ -1,4 +1,4 @@
-import ShopCarTitle from "../components/common/ShopCarTitle";
+import ProductTitle from "../components/products/ProductTitle";
 import Default from "../components/layout/Default";
 import { useLocation, useNavigate } from "react-router-dom";
 import ProductDetail from "../components/products/ProductDetail";
@@ -13,7 +13,7 @@ function Pay() {
 
   return (
     <Default>
-      <ShopCarTitle />
+      <ProductTitle />
       <ProductDetail
         checked={checked}
         shopCar={shopCar}

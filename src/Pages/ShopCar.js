@@ -7,7 +7,7 @@ import { Button } from "antd";
 import { useRecoilValue } from "recoil";
 import TailwindCenter from "../components/common/TailwindCenter";
 import Default from "../components/layout/Default";
-import ShopCarTitle from "../components/common/ShopCarTitle";
+import ProductTitle from "../components/products/ProductTitle";
 import ShopCarInfo from "../components/shopCar/ShopCarInfo";
 import { useNavigate } from "react-router-dom";
 import ShopCarNone from "../components/shopCar/ShopCarNone";
@@ -38,7 +38,7 @@ function ShopCar() {
       {shopCar.length === 0 && <ShopCarNone />}
       {shopCar.length > 0 && (
         <>
-          <ShopCarTitle />
+          <ProductTitle />
           <ShopCarInfo
             setShowDelete={setShowDelete}
             checkDelete={checkDelete}
