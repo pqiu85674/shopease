@@ -11,6 +11,7 @@ import ProductTitle from "../components/products/ProductTitle";
 import ShopCarInfo from "../components/shopCar/ShopCarInfo";
 import { useNavigate } from "react-router-dom";
 import ShopCarNone from "../components/shopCar/ShopCarNone";
+import RowAndCol from "../components/common/RowAndCol";
 
 function ShopCar() {
   const shopCar = useRecoilValue(AtomGetCustomerShopCarFromFirebase);
@@ -54,7 +55,7 @@ function ShopCar() {
               <div>
                 總金額：<span className="text-red-500">{sum}</span>
               </div>
-              <Button type="primary" onClick={GoPay}>
+              <Button type="primary" onClick={GoPay} className="p-4">
                 結帳
               </Button>
             </div>

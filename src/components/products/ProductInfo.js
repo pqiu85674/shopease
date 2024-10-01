@@ -80,7 +80,7 @@ const ProductInfo = ({
             <div className="text-4xl">{title}</div>
             <div className="text-red-500 m-4 p-2 bg-neutral-200">${price}</div>
             {kind.length > 1 && (
-              <div className="flex gap-2 my-4">
+              <div className="flex gap-1 my-4">
                 <div>種類：</div>
                 <Radio.Group
                   defaultValue={customerKind ? customerKind : null}
@@ -101,8 +101,8 @@ const ProductInfo = ({
               </div>
             )}
             {size.length > 1 && (
-              <div className="flex gap-4 my-4">
-                <div>size：</div>
+              <div className="flex gap-1 my-4">
+                <div>尺寸：</div>
                 <Radio.Group
                   defaultValue={customerSize ? customerSize : null}
                   onChange={(e) => {

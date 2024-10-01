@@ -74,7 +74,7 @@ function Header() {
                 setCollapsed(!collapsed);
               }}
             >
-              <FaBars size={36} className="cursor-pointer" />
+              <FaBars size={50} className="cursor-pointer" />
             </div>
             <Link
               to="/"
@@ -157,13 +157,13 @@ function Header() {
                   className={`text-rose-500 absolute top-0 right-0 ${
                     shopCar.length > 0 ? "block" : "hidden"
                   }`}
-                  size={20}
+                  size={25}
                 />
-                <FaShoppingCart size={30} className="m-2 mr-3" />
+                <FaShoppingCart size={40} className="m-2 mr-3" />
               </Link>
             </div>
             <MdAccountCircle
-              size={40}
+              size={50}
               className="mr-6 cursor-pointer"
               onClick={(e) => {
                 setUseIcon(!useIcon);
@@ -171,7 +171,7 @@ function Header() {
               }}
             />
             <div
-              className={`transition-all absolute top-20 right-4 bg-neutral-700 w-48 h-96 rounded-lg py-6 text-xl ${
+              className={`transition-all absolute top-20 right-4 bg-neutral-700 w-48 h-96 rounded-md py-6 text-xl ${
                 useIcon ? "block" : "hidden"
               }`}
               onClick={(e) => {
@@ -179,19 +179,22 @@ function Header() {
               }}
             >
               <IoClose
-                size={40}
+                size={50}
                 className="absolute top-2 right-2 cursor-pointer"
                 onClick={() => {
                   setUseIcon(false);
                 }}
               />
               <div className="flex items-center mb-2 gap-2">
-                <MdAccountCircle size={46} className="ml-4 inline-block" />
+                <MdAccountCircle size={50} className="ml-4 inline-block" />
                 <div className="inline-block">{`${userName}`}</div>
               </div>
               <Link
-                to="/"
+                to="/account"
                 className="py-1 px-6 hover:bg-neutral-500 text-neutral-300 cursor-pointer block"
+                onClick={() => {
+                  setUseIcon(false);
+                }}
               >
                 我的檔案
               </Link>

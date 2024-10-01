@@ -36,6 +36,7 @@ function Pay() {
               onClick={() => {
                 navigate("/ECPay", { state: { order } });
               }}
+              className="p-4"
             >
               送出訂單
             </Button>

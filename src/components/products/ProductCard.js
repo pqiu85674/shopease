@@ -12,7 +12,7 @@ function ProductCard({ productId, src, title, price, alt, size, kind }) {
       <Card
         hoverable
         className="w-full h-full border-0 p-0.5"
-        cover={<StyledCard src={src[0]} alt={alt[0]} />}
+        cover={<StyledCard src={src[0]} />}
       >
         <Card.Meta
           title={title}

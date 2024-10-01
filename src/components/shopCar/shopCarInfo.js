@@ -13,6 +13,7 @@ import deleteShopCar from "../../axios/deleteShopCar";
 import updateShopCar from "../../axios/updateShopCar";
 import customerShopCar from "../../axios/customerShopCar";
 import RowAndCol from "../common/RowAndCol";
+import styled from "styled-components";
 
 function ShopCarInfo({
   setShowDelete,
@@ -33,6 +34,21 @@ function ShopCarInfo({
   const [deleteProductId, setDeleteProductId] = React.useState();
   const [currentPrice, setCurrentValue] = React.useState(0);
 
+  const StyledCheckbox = styled(Checkbox)`
+    .ant-checkbox {
+      transform: scale(2);
+    }
+
+    .ant-checkbox-checked .ant-checkbox-inner,
+    .ant-checkbox-inner {
+      width: 16px;
+      height: 16px;
+    }
+
+    .ant-checkbox + span {
+      font-size: 18px;
+    }
+  `;
   React.useEffect(() => {
     (async () => {
       if (checkDelete) {
@@ -65,8 +81,9 @@ function ShopCarInfo({
       if (AllProduct.id === products.productId) {
         return (
           <RowAndCol
+            key={index}
             col1={
-              <Checkbox
+              <StyledCheckbox
                 value={products.productId}
                 onChange={(e) => {
                   if (e.target.checked) {
@@ -79,15 +96,15 @@ function ShopCarInfo({
                     setSum(sum - products.price * products.count);
                   }
                 }}
-              ></Checkbox>
+              ></StyledCheckbox>
             }
             col2={
               <div className="w-full h-hull">
                 <StyledCard
                   src={
-                    AllProduct.alt.indexOf(products.kind) === -1
+                    AllProduct.kind.indexOf(products.kind) === -1
                       ? AllProduct.src[0]
-                      : AllProduct.src[AllProduct.alt.indexOf(products.kind)]
+                      : AllProduct.src[AllProduct.kind.indexOf(products.kind)]
                   }
                   className="cursor-pointer"
                   onClick={() => {
