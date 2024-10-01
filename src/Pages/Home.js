@@ -3,27 +3,49 @@ import React from "react";
 import ProductCard from "../components/products/ProductCard";
 import { useRecoilValue } from "recoil";
 import { AtomGetAllProductsFromFirebase } from "../Recoil/Atom";
+import { useLocation } from "react-router-dom";
 
 function Home() {
-  const products = useRecoilValue(AtomGetAllProductsFromFirebase);
-  // console.log(products);
+  const AllProducts = useRecoilValue(AtomGetAllProductsFromFirebase);
+
+  const location = useLocation();
+
+  const search = location.state?.search || "";
   return (
     <div>
       <Default>
         <div className="flex flex-wrap ">
-          {products.map((product) => {
-            return (
-              <ProductCard
-                key={product.id}
-                productId={product.id}
-                src={product.src}
-                title={product.title}
-                price={product.price}
-                alt={product.alt}
-                size={product.size}
-                kind={product.kind}
-              />
-            );
+          {AllProducts.map((AllProduct) => {
+            if (search === "") {
+              return (
+                <ProductCard
+                  key={AllProduct.id}
+                  productId={AllProduct.id}
+                  src={AllProduct.src}
+                  title={AllProduct.title}
+                  price={AllProduct.price}
+                  alt={AllProduct.alt}
+                  size={AllProduct.size}
+                  kind={AllProduct.kind}
+                />
+              );
+            } else {
+              if (AllProduct.title.indexOf(search) > -1) {
+                return (
+                  <ProductCard
+                    key={AllProduct.id}
+                    productId={AllProduct.id}
+                    src={AllProduct.src}
+                    title={AllProduct.title}
+                    price={AllProduct.price}
+                    alt={AllProduct.alt}
+                    size={AllProduct.size}
+                    kind={AllProduct.kind}
+                  />
+                );
+              }
+            }
+            return null;
           })}
         </div>
       </Default>
