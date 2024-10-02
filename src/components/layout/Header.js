@@ -12,13 +12,11 @@ import {
   AtomIsMember,
   AtomUseIcon,
 } from "../../Recoil/Atom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
 import { BiSolidMessageRoundedError } from "react-icons/bi";
-import getProducts from "../../axios/getProducts";
-import axios from "axios";
 import { AtomGetCustomerShopCarFromFirebase } from "../../Recoil/Atom";
 import customerShopCar from "../../axios/customerShopCar";
 
@@ -28,11 +26,11 @@ function Header() {
   const [isSignUp, setIsSignUp] = useRecoilState(AtomIsSignUp);
   const [userName, setUserName] = useRecoilState(AtomUserName);
   const [isMember, setIsMember] = useRecoilState(AtomIsMember);
+  const [useIcon, setUseIcon] = useRecoilState(AtomUseIcon);
+  const [userUid, setUserUid] = useRecoilState(AtomUserUid);
   const [shopCar, setShopCar] = useRecoilState(
     AtomGetCustomerShopCarFromFirebase
   );
-  const [useIcon, setUseIcon] = useRecoilState(AtomUseIcon);
-  const userUid = useRecoilValue(AtomUserUid);
   const [search, setSearch] = React.useState("");
 
   const location = useLocation();
@@ -101,20 +99,6 @@ function Header() {
             >
               結帳
             </div>
-
-            <button
-              onClick={() => {
-                getProducts();
-                axios
-                  .get("http://localhost:3000/addProducts")
-                  .then((response) => {
-                    console.log(response);
-                  })
-                  .catch((err) => console.log(err));
-              }}
-            >
-              test
-            </button>
           </div>
           <div className="flex items-center justify-center">
             <input
@@ -189,7 +173,7 @@ function Header() {
                 <MdAccountCircle size={50} className="ml-4 inline-block" />
                 <div className="inline-block">{`${userName}`}</div>
               </div>
-              <Link
+              {/* <Link
                 to="/account"
                 className="py-1 px-6 hover:bg-neutral-500 text-neutral-300 cursor-pointer block"
                 onClick={() => {
@@ -197,7 +181,7 @@ function Header() {
                 }}
               >
                 我的檔案
-              </Link>
+              </Link> */}
               {/* <div className="w-full h-0.5 bg-neutral-300"></div> */}
               <Link
                 to="/"
@@ -205,6 +189,7 @@ function Header() {
                 onClick={() => {
                   setIsMember(false);
                   setUserName("");
+                  setUserUid("");
                 }}
               >
                 登出

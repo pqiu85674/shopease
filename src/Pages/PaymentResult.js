@@ -1,8 +1,6 @@
 import { Button } from "antd";
-import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 function PaymentResult() {
-  const { message } = useParams();
   const navigate = useNavigate();
   return (
     <div className="m-12 flex gap-4 items-center">

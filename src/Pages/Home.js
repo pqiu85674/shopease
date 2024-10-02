@@ -4,6 +4,7 @@ import ProductCard from "../components/products/ProductCard";
 import { useRecoilValue } from "recoil";
 import { AtomGetAllProductsFromFirebase } from "../Recoil/Atom";
 import { useLocation } from "react-router-dom";
+import PopupModal from "../components/common/PopupModal";
 
 function Home() {
   const AllProducts = useRecoilValue(AtomGetAllProductsFromFirebase);
@@ -13,6 +14,7 @@ function Home() {
   const search = location.state?.search || "";
   return (
     <div>
+      <PopupModal />
       <Default>
         <div className="flex flex-wrap ">
           {AllProducts.map((AllProduct) => {

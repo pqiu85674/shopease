@@ -26,7 +26,7 @@ function ECPay() {
     }
 
     fetchPaymentForm();
-  }, []);
+  }, [order, userUid]);
 
   // 在表單渲染後自動提交
   React.useEffect(() => {

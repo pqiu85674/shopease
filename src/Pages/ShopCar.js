@@ -11,7 +11,6 @@ import ProductTitle from "../components/products/ProductTitle";
 import ShopCarInfo from "../components/shopCar/ShopCarInfo";
 import { useNavigate } from "react-router-dom";
 import ShopCarNone from "../components/shopCar/ShopCarNone";
-import RowAndCol from "../components/common/RowAndCol";
 
 function ShopCar() {
   const shopCar = useRecoilValue(AtomGetCustomerShopCarFromFirebase);
