@@ -42,7 +42,7 @@ const ProductInfo = ({
     if (customerKind) {
       refKind.current.goTo(kind.indexOf(customerKind));
     }
-  }, [kind,customerKind]);
+  }, [kind, customerKind]);
 
   function picture() {
     if (src.length > 1) {
@@ -132,28 +132,43 @@ const ProductInfo = ({
             </div>
             <div className="pt-8 flex gap-4 justify-center">
               <Button
-                className="text-xl"
+                className="text-xl p-4"
                 type="primary"
                 onClick={async () => {
-                  !isMember && navigate("/signIn");
-                  await updateShopCar(
-                    userUid,
-                    productId,
-                    price,
-                    count,
-                    selectSize,
-                    selectKind
-                  );
-                  console.log(await customerShopCar(userUid));
-                  setShopCar(await customerShopCar(userUid));
-                  handleVisible();
+                  if (
+                    kind.length > 0 &&
+                    selectKind === undefined &&
+                    customerKind === undefined
+                  ) {
+                    alert("請選擇種類");
+                  } else if (
+                    size.length > 0 &&
+                    selectSize === undefined &&
+                    customerSize === undefined
+                  ) {
+                    alert("請選擇size");
+                  } else if (!isMember) {
+                    navigate("/signIn");
+                  } else {
+                    await updateShopCar(
+                      userUid,
+                      productId,
+                      price,
+                      count,
+                      selectSize,
+                      selectKind
+                    );
+                    console.log(await customerShopCar(userUid));
+                    setShopCar(await customerShopCar(userUid));
+                    handleVisible();
+                  }
                 }}
               >
                 <FaShoppingCart />
                 加入購物車
               </Button>
               <Button
-                className="text-xl"
+                className="text-xl p-4"
                 type="primary"
                 onClick={async () => {
                   if (
