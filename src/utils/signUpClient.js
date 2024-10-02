@@ -19,11 +19,6 @@ async function saveToDatabase(uid, userName, email) {
     });
   } catch (error) {
     console.log("儲存用戶資料到 Firestore 時發生錯誤", error);
-    throw {
-      status: "firebase error",
-      message: "儲存用戶資料到 Firestore 時發生錯誤",
-      error,
-    };
   }
 }
 
