@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function signIn(idToken) {
   try {
-    const response = await axios.post("https://server-e6wn.onrender.com/signIn", {
+    const response = await axios.post(`${process.env.REACT_APP_Render}/signIn`, {
       idToken,
     });
     return response.data;

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 async function deleteShopCar(userUid, product) {
-  await axios.delete("https://server-e6wn.onrender.com/deleteShopCar", {
+  await axios.delete(`${process.env.REACT_APP_Render}/deleteShopCar`, {
     headers: {
       "Content-Type": "application/json",
     },
