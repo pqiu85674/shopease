@@ -1,5 +1,5 @@
 import React from "react";
-import { UserOutlined, HomeOutlined, HistoryOutlined } from "@ant-design/icons";
+import { HomeOutlined, HistoryOutlined } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import Header from "./Header";
 import CollapsedContext from "../Contexts/CollapsedContext";
@@ -19,7 +19,7 @@ const siderStyle = {
   scrollbarWidth: "thin",
   scrollbarColor: "unset",
 };
-const items = [HomeOutlined, UserOutlined, HistoryOutlined].map(
+const items = [HomeOutlined, HistoryOutlined].map(
   (icon, index) => {
     let label = "";
     switch (index) {
@@ -27,11 +27,11 @@ const items = [HomeOutlined, UserOutlined, HistoryOutlined].map(
         label = "回首頁";
         break;
       case 1:
-        label = "我的檔案";
-        break;
-      case 2:
         label = "交易紀錄";
         break;
+      // case 2:
+      //   label = "我的檔案";
+      //   break;
       default:
         break;
     }
@@ -52,7 +52,7 @@ const Default = ({ children }) => {
 
   const layoutStyle = React.useMemo(
     () => ({
-      marginInlineStart: collapsed ? "100px" : "300px",
+      marginInlineStart: collapsed ? "80px" : "300px",
     }),
     [collapsed]
   );
@@ -66,12 +66,12 @@ const Default = ({ children }) => {
       case "/":
         setSelectedKeys(["1"]);
         break;
-      case "/account":
+      case "/order":
         setSelectedKeys(["2"]);
         break;
-      case "/order":
-        setSelectedKeys(["3"]);
-        break;
+      // case "/account":
+      //   setSelectedKeys(["3"]);
+      //   break;
       default:
         break;
     }
@@ -101,10 +101,10 @@ const Default = ({ children }) => {
                   navigate("/");
                   break;
                 case "2":
-                  navigate("/account");
+                  navigate("/order");
                   break;
                 case "3":
-                  navigate("/order");
+                  navigate("/account");
                   break;
                 default:
                   break;
