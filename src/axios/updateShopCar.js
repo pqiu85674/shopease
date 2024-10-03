@@ -3,7 +3,7 @@ import axios from "axios";
 async function updateShopCar(userUid, productId, price, count, size, kind) {
   try {
     const result = await axios.patch(
-      `${process.env.REACT_APP_Render}/updateShopCar`,
+      `https://server-e6wn.onrender.com/updateShopCar`,
       {
         userUid,
         productId,

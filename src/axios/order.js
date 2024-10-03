@@ -1,7 +1,7 @@
 import axios from "axios";
 
 async function order(userUid) {
-  const response = await axios.post(`${process.env.REACT_APP_Render}/order`, {
+  const response = await axios.post(`https://server-e6wn.onrender.com/order`, {
     userUid,
   });
 
