@@ -44,7 +44,7 @@ function App() {
         },
       }}
     >
-      <BrowserRouter>
+      <BrowserRouter basename="/shopease">
         <CollapsedProvider>
           <Routes>
             <Route path="/" element={<Home />}></Route>
@@ -54,7 +54,7 @@ function App() {
             <Route path="/shopCar" element={<ShopCar />}></Route>
             <Route path="/pay" element={<Pay />}></Route>
             <Route path="/account" element={<Account />}></Route>
-            <Route path="/clientReturn" element={<PaymentResult />}></Route>
+            <Route path="/clientreturn" element={<PaymentResult />}></Route>
             <Route path="/ECPay" element={<ECPay />}></Route>
             <Route path="/order" element={<Order />}></Route>
           </Routes>
