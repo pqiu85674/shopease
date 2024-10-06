@@ -66,7 +66,7 @@ function ShopCar() {
             <div className="text-neutral-300 my-4 mx-8">確定刪除此商品</div>
             <div className="flex mb-4 gap-4">
               <Button
-                size="small"
+                size="middle"
                 onClick={(e) => {
                   setShowDelete(false);
                 }}
@@ -75,7 +75,7 @@ function ShopCar() {
                 取消
               </Button>
               <Button
-                size="small"
+                size="middle"
                 onClick={(e) => {
                   setShowDelete(false);
                   setCheckDelete(true);

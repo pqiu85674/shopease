@@ -1,5 +1,5 @@
 import "./input.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import { ConfigProvider } from "antd";
 import { CollapsedProvider } from "./components/Contexts/CollapsedContext";
@@ -39,12 +39,12 @@ function App() {
         },
         components: {
           Layout: {
-            siderBg: "bg-neutral-300", // Sider 背景颜色
+            siderBg: "bg-neutral-300",
           },
         },
       }}
     >
-      <BrowserRouter basename="/shopease">
+      <HashRouter>
         <CollapsedProvider>
           <Routes>
             <Route path="/" element={<Home />}></Route>
@@ -59,7 +59,7 @@ function App() {
             <Route path="/order" element={<Order />}></Route>
           </Routes>
         </CollapsedProvider>
-      </BrowserRouter>
+      </HashRouter>
     </ConfigProvider>
   );
 }

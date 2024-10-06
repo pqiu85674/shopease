@@ -130,7 +130,6 @@ function SignInSignUp() {
               className="mt-4"
               onClick={() => {
                 handleSignInSignUp();
-                // console.log("test");
               }}
             >
               {isSignIn && "登入"}

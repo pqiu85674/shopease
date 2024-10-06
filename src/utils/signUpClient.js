@@ -7,11 +7,7 @@ import db from "../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 async function saveToDatabase(uid, userName, email) {
-  console.log("uid", uid);
-  console.log("userName", userName);
-  console.log("email", email);
   try {
-    // 在 "users" 集合中創建新文件，以用戶的 uid 作為文件 ID
     await setDoc(doc(db, "users", uid), {
       userName,
       email,
@@ -25,7 +21,6 @@ async function saveToDatabase(uid, userName, email) {
 async function signUpClient(userName, email, password) {
   try {
     const auth = getAuth();
-    // 創建新用戶
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -35,8 +30,7 @@ async function signUpClient(userName, email, password) {
     await updateProfile(user, {
       displayName: userName,
     });
-    console.log("user All", user);
-    // 獲取 ID Token
+    
     const idToken = await user.getIdToken();
     const uid = user.uid;
 
@@ -53,7 +47,6 @@ async function signUpClient(userName, email, password) {
     } else if (error.status === "firebase error") {
       return { error };
     } else {
-      // 對於其他未處理的錯誤，返回通用錯誤信息
       return { status: "error", message: error };
     }
   }

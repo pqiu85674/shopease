@@ -29,9 +29,6 @@ const items = [HomeOutlined, HistoryOutlined].map(
       case 1:
         label = "交易紀錄";
         break;
-      // case 2:
-      //   label = "我的檔案";
-      //   break;
       default:
         break;
     }
@@ -69,9 +66,6 @@ const Default = ({ children }) => {
       case "/order":
         setSelectedKeys(["2"]);
         break;
-      // case "/account":
-      //   setSelectedKeys(["3"]);
-      //   break;
       default:
         break;
     }
@@ -121,7 +115,6 @@ const Default = ({ children }) => {
               style={{
                 padding: 24,
                 textAlign: "center",
-                // background: colorBgContainer,
                 borderRadius: borderRadiusLG,
               }}
               className="bg-neutral-300"

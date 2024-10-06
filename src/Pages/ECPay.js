@@ -16,7 +16,7 @@ function ECPay() {
       try {
         const response = await ECPayAxios(order, userUid);
         if (typeof response === "string") {
-          setPaymentForm(response); // 只有在 response 是字串時才設置
+          setPaymentForm(response);
         } else {
           console.error("Response is not a valid HTML string");
         }
@@ -28,7 +28,6 @@ function ECPay() {
     fetchPaymentForm();
   }, [order, userUid]);
 
-  // 在表單渲染後自動提交
   React.useEffect(() => {
     if (paymentForm) {
       const form = document.getElementById("_form_aiochk");
@@ -42,10 +41,10 @@ function ECPay() {
     <div>
       {paymentForm ? (
         <div
-          dangerouslySetInnerHTML={{ __html: paymentForm }} // 插入 HTML 並渲染
+          dangerouslySetInnerHTML={{ __html: paymentForm }}
         />
       ) : (
-        <p>處理付款中...</p> // 資料還在請求中時顯示的訊息
+        <p>處理付款中...</p>
       )}
     </div>
   );

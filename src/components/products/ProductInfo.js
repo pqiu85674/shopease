@@ -106,7 +106,6 @@ const ProductInfo = ({
                 <Radio.Group
                   defaultValue={customerSize ? customerSize : null}
                   onChange={(e) => {
-                    // console.log(e.target.value);
                     setSelectSize(e.target.value);
                   }}
                 >
@@ -158,7 +157,6 @@ const ProductInfo = ({
                       selectSize,
                       selectKind
                     );
-                    console.log(await customerShopCar(userUid));
                     setShopCar(await customerShopCar(userUid));
                     handleVisible();
                   }

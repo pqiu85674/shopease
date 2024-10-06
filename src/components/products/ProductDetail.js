@@ -3,7 +3,6 @@ import StyledCard from "../common/StyledCard";
 
 function ProductDetail({ checked, shopCar, AllProducts }) {
   return shopCar.map((product) => {
-    // console.log(product)
     return AllProducts.map((AllProduct, index) => {
       if (AllProduct.id === product.productId) {
         const index = checked.indexOf(product.productId);

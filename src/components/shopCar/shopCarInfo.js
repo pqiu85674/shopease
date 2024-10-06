@@ -141,7 +141,6 @@ function ShopCarInfo({
             col7={
               <div
                 className="w-16 text-center flex gap-2 border border-neutral-800"
-                // style={{ margin: -15 }}
               >
                 <div
                   className="w-10 border-r border-neutral-800 cursor-pointer"
@@ -169,7 +168,6 @@ function ShopCarInfo({
                         date.push(shopCarProducts);
                       }
                     });
-                    // console.log(date);
                     setShopCar(date);
                   }}
                 >
@@ -238,7 +236,6 @@ function ShopCarInfo({
   }
 
   if (Array.isArray(shopCar)) {
-    // console.log(shopCar)
     return shopCar.map((products, index) => {
       return (
         <div key={index}>

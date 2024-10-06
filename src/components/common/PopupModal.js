@@ -15,7 +15,7 @@ function PopupModal() {
       if (now - modal.now > 100000) {
         localStorage.removeItem("modalkey");
         setIsModalOpen(true);
-        localStorage.setItem("madalkey", JSON.stringify({ modalKey, now }));
+        localStorage.setItem("modalkey", JSON.stringify({ modalKey, now }));
       }
     }
   }, []);

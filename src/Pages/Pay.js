@@ -23,7 +23,7 @@ function Pay() {
       <div className="bg-neutral-200 p-4 mt-4">
         <div className="flex justify-between mb-4 px-8">
           <div>付款方式</div>
-          <div>貨到付款</div>
+          <div>信用卡付款</div>
         </div>
         <div>
           <div className="text-end pr-8">
